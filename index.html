@@ -638,6 +638,21 @@
                 font-size: 0.85rem;
             }
         }
+        /*
+         * Safari iPhone 320px: se a escala falhar por subpixels/barra URL, permite scroll mínimo no hero.
+         */
+        @supports (-webkit-touch-callout: none) {
+            @media (max-width: 320px) {
+                .hero-section {
+                    overflow-y: auto !important;
+                    -webkit-overflow-scrolling: touch;
+                    overscroll-behavior-y: contain;
+                }
+                .hero-stage {
+                    padding-bottom: 3rem;
+                }
+            }
+        }
     </style>
 </head>
 <body class="bg-neutral-950 text-neutral-200 font-montserrat antialiased selection:bg-fire-500 selection:text-white">
@@ -947,6 +962,7 @@
 
                 var mobile = window.matchMedia('(max-width: 768px)').matches;
                 var narrow = window.matchMedia('(max-width: 400px)').matches;
+                var veryNarrow = window.matchMedia('(max-width: 320px)').matches;
                 var iphone = isIPhone();
                 var stage = document.querySelector('.hero-stage');
                 var hAvail = header.clientHeight;
@@ -956,12 +972,17 @@
                     var pb = parseFloat(cs.paddingBottom) || 0;
                     hAvail = Math.max(80, stage.clientHeight - pt - pb);
                 }
+                if (iphone && veryNarrow) {
+                    var bBot = parseFloat(getComputedStyle(header).borderBottomWidth) || 0;
+                    hAvail = Math.max(64, hAvail - bBot - 12);
+                }
                 var wAvail = header.clientWidth;
                 var hContent = flow.scrollHeight;
                 var wContent = flow.scrollWidth;
                 var pad = 0.97;
                 if (mobile) {
-                    if (narrow) pad = 0.84;
+                    if (veryNarrow && iphone) pad = 0.75;
+                    else if (narrow) pad = 0.84;
                     else if (iphone) pad = 0.9;
                     else pad = 0.94;
                 }
@@ -974,8 +995,12 @@
                         flow.style.transformOrigin = 'top left';
                     }
                     flow.style.transform = 'scale(' + s + ')';
-                    shell.style.width = Math.max(1, Math.ceil(wContent * s)) + 'px';
-                    shell.style.height = Math.max(1, Math.ceil(hContent * s)) + 'px';
+                    var rw = wContent * s;
+                    var rh = hContent * s;
+                    var dimW = mobile ? Math.floor(rw) : Math.ceil(rw);
+                    var dimH = mobile ? Math.floor(rh) : Math.ceil(rh);
+                    shell.style.width = Math.max(1, dimW) + 'px';
+                    shell.style.height = Math.max(1, dimH) + 'px';
                 }
             }
 
