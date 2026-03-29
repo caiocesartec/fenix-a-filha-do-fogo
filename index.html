@@ -455,6 +455,33 @@
             }
         }
         /*
+         * Safari no iPhone (WebKit): centragem vertical + scale(top) cortava o topo; Android não usa este @supports.
+         */
+        @supports (-webkit-touch-callout: none) {
+            @media (max-width: 768px) {
+                .hero-section {
+                    padding-top: max(0.35rem, env(safe-area-inset-top, 0px));
+                }
+                .hero-stage {
+                    align-items: flex-start;
+                    justify-content: center;
+                    padding-top: 0.15rem;
+                    padding-bottom: 3.25rem;
+                }
+                .hero-fit-shell {
+                    align-self: stretch;
+                    align-items: flex-start;
+                    justify-content: center;
+                    overflow-x: hidden;
+                    overflow-y: visible;
+                    max-width: 100%;
+                }
+                .hero-flow {
+                    justify-content: flex-start;
+                }
+            }
+        }
+        /*
          * iPhone ~320px (SE 1ª geração, etc.): altura útil + conteúdo muito alto — só este intervalo.
          */
         @media (max-width: 320px) {
@@ -809,11 +836,15 @@
             var flow = document.querySelector('.hero-flow');
             if (!header || !shell || !flow) return;
 
-            /** Desktop: altura em px evita bug 100vh. Mobile: CSS 100svh — não forçar inline (iOS). */
+            function isIPhone() {
+                return /iPhone/.test(navigator.userAgent || '');
+            }
+
+            /** Desktop: altura em px. iPhone: visualViewport (barra URL). Outros mobile: CSS 100svh. */
             function applyHeroViewport() {
                 var el = document.querySelector('header.hero-section');
                 var mobile = window.matchMedia('(max-width: 768px)').matches;
-                var narrow = window.matchMedia('(max-width: 320px)').matches;
+                var iphone = isIPhone();
                 var vv = window.visualViewport;
                 var ih = window.innerHeight || document.documentElement.clientHeight || 0;
                 var vvh = vv && typeof vv.height === 'number' && vv.height > 0 ? vv.height : ih;
@@ -824,7 +855,7 @@
                 document.documentElement.style.setProperty('--vh', (h * 0.01) + 'px');
                 if (el) {
                     if (mobile) {
-                        if (narrow && vv && vv.height > 200) {
+                        if (iphone && vv && vv.height > 200) {
                             var vvH = Math.round(vv.height);
                             el.style.setProperty('height', vvH + 'px', 'important');
                             el.style.setProperty('min-height', vvH + 'px', 'important');
@@ -853,6 +884,7 @@
 
                 var mobile = window.matchMedia('(max-width: 768px)').matches;
                 var narrow = window.matchMedia('(max-width: 320px)').matches;
+                var iphone = isIPhone();
                 var stage = document.querySelector('.hero-stage');
                 var hAvail = header.clientHeight;
                 if (mobile && stage) {
@@ -864,8 +896,12 @@
                 var wAvail = header.clientWidth;
                 var hContent = flow.scrollHeight;
                 var wContent = flow.scrollWidth;
-                /* Narrow: um pouco mais de folga vertical (evita micro-corte com border/shell) */
-                var pad = mobile ? (narrow ? 0.84 : 0.94) : 0.97;
+                var pad = 0.97;
+                if (mobile) {
+                    if (narrow) pad = 0.84;
+                    else if (iphone) pad = 0.9;
+                    else pad = 0.94;
+                }
                 var s = Math.min(1, (hAvail * pad) / hContent, (wAvail * pad) / wContent);
 
                 if (s < 1) {
@@ -895,6 +931,12 @@
                 window.visualViewport.addEventListener('resize', function () {
                     requestAnimationFrame(fitHero);
                 });
+                if (isIPhone()) {
+                    window.visualViewport.addEventListener('scroll', function () {
+                        requestAnimationFrame(applyHeroViewport);
+                        requestAnimationFrame(fitHero);
+                    });
+                }
             }
             if (document.fonts && document.fonts.ready) {
                 document.fonts.ready.then(function () {
