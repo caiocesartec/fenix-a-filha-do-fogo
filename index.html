@@ -88,6 +88,55 @@
         .fenix-maps-icon {
             filter: drop-shadow(0 0 12px rgba(255, 179, 102, 0.95)) drop-shadow(0 0 26px rgba(255, 102, 0, 0.7));
         }
+        /* Convite a rolar (hero): ícone a piscar */
+        .hero-scroll-hint {
+            position: absolute;
+            bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
+            left: 50%;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+            padding: 0.35rem 0.75rem;
+            color: #ffb366;
+            text-decoration: none;
+            font-family: Montserrat, sans-serif;
+            font-size: clamp(0.58rem, 1.35vmin, 0.72rem);
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            text-shadow: 0 0 12px rgba(255, 102, 0, 0.45);
+            animation: hero-scroll-blink 1.35s ease-in-out infinite;
+            pointer-events: auto;
+        }
+        .hero-scroll-hint:focus-visible {
+            outline: 2px solid rgba(255, 179, 102, 0.85);
+            outline-offset: 3px;
+            border-radius: 0.25rem;
+        }
+        .hero-scroll-hint i {
+            font-size: clamp(1rem, 2.8vmin, 1.35rem);
+            line-height: 1;
+            filter: drop-shadow(0 0 8px rgba(255, 102, 0, 0.5));
+        }
+        @keyframes hero-scroll-blink {
+            0%, 100% {
+                opacity: 0.38;
+                transform: translate(-50%, 0);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, 4px);
+            }
+        }
+        .hero-scroll-hint--hidden {
+            opacity: 0 !important;
+            visibility: hidden;
+            pointer-events: none;
+            animation: none;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
         /* Hero = exatamente uma viewport de altura; conteúdo centralizado e escalado para caber */
         .hero-section {
             box-sizing: border-box;
@@ -448,10 +497,15 @@
                 </div>
             </div>
         </div>
+
+        <a href="#manifesto" class="hero-scroll-hint" aria-label="Deslize ou role a página para ver mais conteúdo">
+            <span>Role para baixo</span>
+            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+        </a>
     </header>
 
     <!-- Manifesto / Quote -->
-    <section class="py-20 px-4 bg-neutral-900 relative">
+    <section id="manifesto" class="py-20 px-4 bg-neutral-900 relative scroll-mt-4">
         <div class="max-w-4xl mx-auto text-center relative z-10">
             <i class="fas fa-quote-left text-4xl text-fire-700/50 mb-6 block"></i>
             <p class="font-cinzel text-2xl md:text-4xl text-white leading-relaxed italic">
@@ -731,6 +785,18 @@
                 applyHeroViewport();
                 setTimeout(applyHeroViewport, 150);
             });
+        })();
+    </script>
+    <script>
+        (function () {
+            var hint = document.querySelector('.hero-scroll-hint');
+            if (!hint) return;
+            function sync() {
+                if (window.scrollY > 56) hint.classList.add('hero-scroll-hint--hidden');
+                else hint.classList.remove('hero-scroll-hint--hidden');
+            }
+            window.addEventListener('scroll', sync, { passive: true });
+            sync();
         })();
     </script>
 </body>
