@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fênix: A Filha do Fogo - The Best</title>
+    
+    <!-- Favicon (Ícone da Aba) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>">
+    
+    <!-- Meta Tags para Compartilhamento (WhatsApp, Facebook, Twitter) -->
+    <meta property="og:title" content="Fênix: A Filha do Fogo - The Best">
+    <meta property="og:description" content="Uma obra teatral que celebra a trajetória de Tina Turner, mostrando sua força, coragem e capacidade de transformar dor em arte.">
+    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Tina_Turner.jpg/1280px-Tina_Turner.jpg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Fênix: A Filha do Fogo - The Best">
+    <meta name="twitter:description" content="Uma obra teatral que celebra a trajetória de Tina Turner, mostrando sua força, coragem e capacidade de transformar dor em arte.">
+    <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Tina_Turner.jpg/1280px-Tina_Turner.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        fire: {
+                            100: '#ffebd6',
+                            300: '#ffb366',
+                            500: '#ff6600',
+                            700: '#cc3300',
+                            900: '#661a00',
+                        },
+                        gold: '#d4af37'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #ffb366, #ff6600, #cc3300);
+        }
+        .glow {
+            text-shadow: 0 0 20px rgba(255, 102, 0, 0.5);
+        }
+        /* Hero full-height: vh = fallback; dvh = altura visível dinâmica (mobile, barra de URL etc.) */
+        .min-h-hero {
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+    </style>
+</head>
+<body class="bg-neutral-950 text-neutral-200 font-montserrat antialiased selection:bg-fire-500 selection:text-white">
+
+    <!-- Hero Section -->
+    <header class="relative min-h-hero flex items-center justify-center px-4 py-8 overflow-hidden border-b-4 border-fire-700 bg-neutral-950">
+        
+        <!-- Fundo: cópia local de Commons File:Tina Turner.jpg (Les Zg, CC BY-SA 4.0). A URL Tina_Turner_1989.jpg deixou de existir no Commons (404). -->
+        <div class="absolute inset-0 z-0 grayscale opacity-35 bg-cover bg-center bg-no-repeat" 
+             style="background-image: url('images/tina-turner-hero.jpg');">
+        </div>
+        
+        <!-- Degradê escuro por cima para manter o tom dramático e dar destaque absoluto à Fênix -->
+        <div class="absolute inset-0 z-0 bg-gradient-to-b from-neutral-950/50 via-neutral-950/80 to-neutral-950"></div>
+        
+        <div class="relative z-10 w-full max-w-4xl mx-auto text-center space-y-6">
+            
+            <!-- Símbolo da Fênix (Visível sempre) -->
+            <div class="relative w-32 h-32 mx-auto flex items-center justify-center scale-110 mb-4">
+                <i class="fa-brands fa-phoenix-framework text-white text-5xl md:text-6xl absolute -mt-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.9)] z-10 animate-pulse"></i>
+            </div>
+
+            <div class="uppercase tracking-[0.3em] text-fire-300 font-semibold text-sm md:text-base mb-4 animate-pulse mt-4">
+                Release Oficial
+            </div>
+            <h1 class="font-cinzel text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white mb-2 leading-tight px-2">
+                FÊNIX
+            </h1>
+            <h2 class="font-cinzel text-2xl sm:text-3xl md:text-5xl font-bold text-gradient pb-2 glow px-2">
+                A Filha do Fogo
+            </h2>
+            <div class="flex items-center justify-center gap-2 sm:gap-4 my-6 px-4">
+                <div class="h-px w-8 sm:w-16 bg-fire-500"></div>
+                <h3 class="font-cinzel text-xl sm:text-2xl md:text-3xl text-gold tracking-widest uppercase text-center">The Best</h3>
+                <div class="h-px w-8 sm:w-16 bg-fire-500"></div>
+            </div>
+            
+            <p class="text-base sm:text-lg md:text-xl font-light text-neutral-300 max-w-2xl mx-auto mt-8 px-4">
+                Uma obra teatral que celebra a trajetória de Tina Turner, mostrando sua força, coragem e capacidade de transformar dor em arte.
+            </p>
+
+            <!-- Call to action for Date/Location -->
+            <div class="mt-12 mx-4 inline-block border border-fire-500/50 bg-neutral-900/80 backdrop-blur-sm p-4 sm:p-6 rounded-lg shadow-[0_0_15px_rgba(255,102,0,0.2)]">
+                <p class="text-fire-300 font-semibold text-sm sm:text-base"><i class="fas fa-map-marker-alt mr-2"></i> Feira de Artesanato em Pirituba – SP</p>
+                <p class="text-xs sm:text-sm text-neutral-400 mt-2">Data e Horário: 11 de Abril às 13h</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Manifesto / Quote -->
+    <section class="py-20 px-4 bg-neutral-900 relative">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <i class="fas fa-quote-left text-4xl text-fire-700/50 mb-6 block"></i>
+            <p class="font-cinzel text-2xl md:text-4xl text-white leading-relaxed italic">
+                "Eu não carrego mais suas correntes. Rasguei os véus e transformei cada ferida em força. Hoje sou dona do meu destino, da minha vida… e a minha voz ecoa: <span class="text-gold font-bold not-italic">The Best.</span>"
+            </p>
+            <i class="fas fa-quote-right text-4xl text-fire-700/50 mt-6 block"></i>
+        </div>
+    </section>
+
+    <!-- Os Atos -->
+    <section class="py-20 px-4 bg-neutral-950">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-cinzel text-4xl font-bold text-center text-white mb-16"><span class="text-fire-500 border-b-2 border-fire-500 pb-2">A Jornada</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Ato I -->
+                <div class="bg-neutral-900 border border-neutral-800 p-8 rounded-xl hover:border-fire-700 transition duration-300 group">
+                    <div class="w-16 h-16 bg-neutral-950 rounded-full flex items-center justify-center text-2xl text-fire-500 mb-6 group-hover:scale-110 transition duration-300 shadow-[0_0_10px_rgba(255,102,0,0.1)] group-hover:shadow-[0_0_20px_rgba(255,102,0,0.4)]">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <h3 class="font-cinzel text-2xl font-bold text-white mb-3">Ato I: As Sombras</h3>
+                    <p class="text-neutral-400 font-light leading-relaxed">
+                        Memórias da juventude, os bastidores e os primeiros conflitos. O início de uma história que moldaria uma lenda.
+                    </p>
+                </div>
+
+                <!-- Ato II -->
+                <div class="bg-neutral-900 border border-neutral-800 p-8 rounded-xl hover:border-fire-500 transition duration-300 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-fire-900/10 rounded-full blur-3xl group-hover:bg-fire-700/20 transition duration-500"></div>
+                    <div class="w-16 h-16 bg-neutral-950 rounded-full flex items-center justify-center text-2xl text-fire-300 mb-6 group-hover:scale-110 transition duration-300 shadow-[0_0_10px_rgba(255,102,0,0.1)] group-hover:shadow-[0_0_20px_rgba(255,102,0,0.4)]">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3 class="font-cinzel text-2xl font-bold text-white mb-3">Ato II: As Correntes e Véus</h3>
+                    <p class="text-neutral-400 font-light leading-relaxed">
+                        A representação profunda dos abusos físicos e emocionais, simbolizados artisticamente por correntes, véus brancos e máscaras teatrais.
+                    </p>
+                </div>
+
+                <!-- Ato III -->
+                <div class="bg-gradient-to-b from-neutral-900 to-fire-900/20 border border-fire-900 p-8 rounded-xl hover:border-fire-500 transition duration-300 group">
+                    <div class="w-16 h-16 bg-gradient-to-br from-fire-500 to-fire-700 rounded-full flex items-center justify-center text-2xl text-white mb-6 group-hover:scale-110 group-hover:rotate-12 transition duration-300 shadow-[0_0_15px_rgba(255,102,0,0.5)]">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3 class="font-cinzel text-2xl font-bold text-gold mb-3">Ato III: O Renascimento</h3>
+                    <p class="text-neutral-300 font-light leading-relaxed">
+                        A explosão de libertação e triunfo. A fênix ressurge das cinzas em um manifesto de empoderamento.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Elenco & Equipe (Layout Dividido) -->
+    <section class="py-20 px-4 bg-neutral-900 border-t border-neutral-800">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
+            
+            <!-- Elenco -->
+            <div>
+                <h2 class="font-cinzel text-3xl font-bold text-white mb-8 flex items-center gap-3">
+                    <i class="fas fa-masks-theater text-fire-500"></i> Grande Elenco
+                </h2>
+                <div class="space-y-4 text-neutral-300 font-light">
+                    <div class="p-4 bg-neutral-950/50 rounded-lg border border-neutral-800 hover:border-fire-500/50 transition">
+                        <span class="block text-fire-300 font-bold uppercase text-xs mb-1">Protagonista (Tina Adulta)</span>
+                        <span class="text-xl font-semibold text-white">Márcia Reis</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="p-4 bg-neutral-950/50 rounded-lg border border-neutral-800">
+                            <span class="block text-neutral-500 text-xs uppercase mb-1">Tina Jovem</span>
+                            <span class="font-semibold text-white">Dandara Lima</span>
+                        </div>
+                        <div class="p-4 bg-neutral-950/50 rounded-lg border border-neutral-800">
+                            <span class="block text-neutral-500 text-xs uppercase mb-1">Irmã de Tina</span>
+                            <span class="font-semibold text-white">Cassia Cristina</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="space-y-2 mt-6 pt-4 border-t border-neutral-800">
+                        <li><strong class="text-white">Selma Silveira:</strong> Narradora</li>
+                        <li><strong class="text-white">Adão Cobertino:</strong> Empresário de Ike Turner</li>
+                        <li><strong class="text-white">Felix e Uesley:</strong> Músicos</li>
+                        <li><strong class="text-white">Kilox:</strong> Sr. Turner</li>
+                        <li><strong class="text-white">Franciele e Bha Nogueira:</strong> Maquiadoras da Tina Jovem</li>
+                        <li><strong class="text-white">Modelos Convidadas:</strong> Vozes da consciência</li>
+                    </ul>
+
+                    <div class="mt-6 p-4 bg-gradient-to-r from-fire-900/30 to-transparent rounded-lg border-l-4 border-fire-500">
+                        <h4 class="font-cinzel font-bold text-gold flex items-center gap-2">
+                            <i class="fas fa-microphone-lines"></i> Participação Musical Especial
+                        </h4>
+                        <p class="mt-1">Grupo <strong>Tinamarcs & Marcettes</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Equipe de Produção -->
+            <div>
+                <h2 class="font-cinzel text-3xl font-bold text-white mb-8 flex items-center gap-3">
+                    <i class="fas fa-clapperboard text-fire-500"></i> Produção
+                </h2>
+                <div class="bg-neutral-950 p-6 rounded-xl border border-neutral-800">
+                    <ul class="space-y-4 text-neutral-300 font-light">
+                        <li class="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-neutral-800 pb-2">
+                            <span class="text-white font-semibold">Rossy Marry</span>
+                            <span class="text-fire-300 text-sm">Roteirista e Direção Geral</span>
+                        </li>
+                        <li class="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-neutral-800 pb-2">
+                            <span class="text-white font-semibold">Sabrynna Ollyver</span>
+                            <span class="text-fire-300 text-sm">Empresária e Produção Geral</span>
+                        </li>
+                        <li class="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-neutral-800 pb-2">
+                            <span class="text-white font-semibold">Haruna Veneziano</span>
+                            <span class="text-fire-300 text-sm">Co-produtora</span>
+                        </li>
+                        <li class="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-neutral-800 pb-2">
+                            <span class="text-white font-semibold">Paulo Speranza</span>
+                            <span class="text-fire-300 text-sm">Fotógrafo Oficial</span>
+                        </li>
+                        <li class="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-neutral-800 pb-2">
+                            <span class="text-white font-semibold">Arthur Speranza</span>
+                            <span class="text-fire-300 text-sm">Vídeo Maker</span>
+                        </li>
+                        <li class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                            <span class="text-white font-semibold">Jussara Sousa</span>
+                            <span class="text-fire-300 text-sm">Coordenadora</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-8 text-center sm:text-left">
+                    <p class="text-sm text-neutral-500 italic">
+                        * Um agradecimento especial ao <strong class="text-neutral-300">Sr. Diniz</strong>, organizador do espaço da Feira de Artesanato em Pirituba.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Closing Statement -->
+    <footer class="bg-black py-12 px-4 border-t border-fire-700/50 relative overflow-hidden">
+        <!-- Glow effect bottom -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-fire-700/20 blur-[100px]"></div>
+        
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <i class="fas fa-sparkles text-gold text-2xl mb-4"></i>
+            <p class="font-cinzel text-xl md:text-2xl text-white font-bold leading-relaxed">
+                "Fênix: A Filha do Fogo – The Best" é mais do que uma peça.<br>
+                <span class="text-fire-400 font-light">É um grito coletivo de libertação, um tributo à mulher que renasceu das cinzas e se tornou eterna.</span>
+            </p>
+            <p class="mt-8 text-xs text-neutral-600 max-w-2xl mx-auto">
+                Imagem de fundo do topo: Tina Turner, <cite>Foreign Affair: The Farewell Tour</cite> (1990), Les Zg / <a class="text-neutral-500 underline hover:text-neutral-400" href="https://commons.wikimedia.org/wiki/File:Tina_Turner.jpg" rel="noopener noreferrer">Wikimedia Commons</a>, <a class="text-neutral-500 underline hover:text-neutral-400" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener noreferrer">CC BY-SA 4.0</a>.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
