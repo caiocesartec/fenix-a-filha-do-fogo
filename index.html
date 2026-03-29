@@ -182,7 +182,7 @@
         .hero-subtitle {
             font-family: Cinzel, serif;
             font-weight: 700;
-            font-size: clamp(0.95rem, min(4vh, 5vmin), 2.65rem);
+            font-size: clamp(1.045rem, min(4.4vh, 5.5vmin), 2.915rem);
             line-height: 1.12;
             margin-top: clamp(0.4rem, 1.2vw, 0.65rem);
             padding-left: 0.25rem;
@@ -198,7 +198,7 @@
             margin-bottom: clamp(0.35rem, 1vw, 0.65rem);
             padding-left: 0.75rem;
             padding-right: 0.75rem;
-            font-size: clamp(0.663rem, min(1.613vh, 1.843vmin), 1.106rem);
+            font-size: clamp(0.73rem, min(1.77vh, 2.03vmin), 1.217rem);
             line-height: 1.45;
         }
         .hero-cta-card {
@@ -218,7 +218,7 @@
         .hero-cta-loc {
             color: #ffb366;
             font-weight: 600;
-            font-size: clamp(0.72rem, 1.75vh, 1.1rem);
+            font-size: clamp(0.792rem, 1.925vh, 1.21rem);
             margin-bottom: clamp(0.65rem, 2.2vw, 1.1rem);
         }
         .hero-maps-wrap {
@@ -288,7 +288,7 @@
         .hero-maps-phoenix-icon {
             position: relative;
             z-index: 10;
-            font-size: clamp(1.15rem, 4.2vh, 2.6rem);
+            font-size: clamp(1.265rem, 4.62vh, 2.86rem);
             line-height: 1;
             color: #ffb366;
         }
@@ -296,12 +296,12 @@
             font-family: Cinzel, serif;
             font-weight: 700;
             letter-spacing: 0.05em;
-            font-size: clamp(0.68rem, 1.9vh, 1.05rem);
+            font-size: clamp(0.748rem, 2.09vh, 1.155rem);
             padding-left: 0.2rem;
             padding-right: 0.2rem;
         }
         .hero-maps-addr {
-            font-size: clamp(0.58rem, 1.35vh, 0.88rem);
+            font-size: clamp(0.638rem, 1.485vh, 0.968rem);
             line-height: 1.5;
             color: #a3a3a3;
             font-weight: 300;
@@ -314,23 +314,35 @@
             max-width: 22rem;
         }
         .hero-cta-date {
-            font-size: clamp(0.6rem, min(1.25vh, 1.4vmin), 0.88rem);
+            font-size: clamp(0.66rem, min(1.375vh, 1.54vmin), 0.968rem);
             color: #a3a3a3;
             margin-top: clamp(0.65rem, 2.2vw, 1.1rem);
         }
         .hero-apoio {
             font-family: Cinzel, serif;
-            font-size: clamp(0.68rem, min(1.5vh, 1.75vmin), 0.95rem);
+            font-size: clamp(0.748rem, min(1.65vh, 1.925vmin), 1.045rem);
             font-weight: 600;
             letter-spacing: 0.06em;
             color: #a3a3a3;
             margin-top: clamp(0.5rem, 1.4vmin, 1rem);
             padding: 0 0.75rem;
             line-height: 1.4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: clamp(0.35rem, 1.2vmin, 0.65rem);
         }
-        .hero-apoio span {
-            color: #ffb366;
-            font-weight: 700;
+        .hero-apoio-label {
+            color: #a3a3a3;
+        }
+        .hero-apoio-logo {
+            height: clamp(1.65rem, min(4.4vh, 5.5vmin), 3.025rem);
+            width: auto;
+            max-width: min(100%, 15.4rem);
+            object-fit: contain;
+            object-position: center;
+            display: block;
         }
         /*
          * Mobile / iPhone: 100svh ≈ ecrã com barra de URL; safe-area para home indicator.
@@ -354,12 +366,12 @@
                 height: clamp(6.25rem, 42vw, 11rem);
             }
             .hero-subtitle {
-                font-size: clamp(1.15rem, 5.8vw, 2rem);
+                font-size: clamp(1.265rem, 6.38vw, 2.2rem);
                 line-height: 1.08;
                 margin-top: clamp(0.25rem, 1vw, 0.5rem);
             }
             .hero-desc {
-                font-size: clamp(0.72rem, 3vw, 0.95rem);
+                font-size: clamp(0.792rem, 3.3vw, 1.045rem);
                 line-height: 1.32;
                 margin-bottom: clamp(0.28rem, 1vw, 0.5rem);
             }
@@ -367,7 +379,7 @@
                 padding: clamp(0.65rem, 3.8vw, 1.35rem) clamp(0.75rem, 4vw, 1.25rem);
             }
             .hero-cta-loc {
-                font-size: clamp(0.82rem, 3.6vw, 1.05rem);
+                font-size: clamp(0.902rem, 3.96vw, 1.155rem);
                 margin-bottom: clamp(0.45rem, 1.8vw, 0.75rem);
             }
             .hero-maps-link {
@@ -379,21 +391,25 @@
                 height: clamp(3rem, 14vw, 5rem);
             }
             .hero-maps-phoenix-icon {
-                font-size: clamp(1.38rem, 6vw, 2.5rem);
+                font-size: clamp(1.518rem, 6.6vw, 2.75rem);
             }
             .hero-maps-cta-text {
-                font-size: clamp(0.9rem, 4.4vw, 1.12rem);
+                font-size: clamp(0.99rem, 4.84vw, 1.232rem);
             }
             .hero-maps-addr {
-                font-size: clamp(0.8rem, 3.8vw, 0.98rem);
+                font-size: clamp(0.88rem, 4.18vw, 1.078rem);
             }
             .hero-cta-date {
-                font-size: clamp(0.78rem, 3.4vw, 0.92rem);
+                font-size: clamp(0.858rem, 3.74vw, 1.012rem);
                 margin-top: clamp(0.45rem, 1.8vw, 0.75rem);
             }
             .hero-apoio {
-                font-size: clamp(0.74rem, 3.2vw, 0.95rem);
+                font-size: clamp(0.814rem, 3.52vw, 1.045rem);
                 margin-top: clamp(0.35rem, 1.5vw, 0.65rem);
+            }
+            .hero-apoio-logo {
+                height: clamp(1.32rem, 9vw, 2.2rem);
+                max-width: min(100%, 72vw);
             }
         }
     </style>
@@ -444,7 +460,10 @@
                 <p class="hero-cta-date font-montserrat">Data e Horário: 11 de Abril às 13h</p>
             </div>
 
-            <p class="hero-apoio">Apoio: <span>Vozes da Passarela</span></p>
+            <p class="hero-apoio">
+                <span class="hero-apoio-label">Apoio:</span>
+                <img src="images/vozes.png" alt="Vozes da Passarela" class="hero-apoio-logo" width="200" height="60" decoding="async" loading="lazy">
+            </p>
                 </div>
             </div>
         </div>
