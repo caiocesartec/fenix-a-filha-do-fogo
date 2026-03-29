@@ -628,6 +628,9 @@
             overflow-y: auto !important;
             -webkit-overflow-scrolling: touch;
             overscroll-behavior-y: contain;
+            /* Safari: barra de URL / status — safe-area + fallback 20px (iPhone sem entalhe) + offset do visualViewport */
+            padding-top: calc(env(safe-area-inset-top, 24px) + 12px + var(--ios-vv-offset-top, 0px)) !important;
+            padding-bottom: max(12px, env(safe-area-inset-bottom, 0px)) !important;
         }
         @supports (height: 100svh) {
             html.iphone-hero-scroll .hero-section {
@@ -927,6 +930,16 @@
 
             var iphoneScroll = document.documentElement.classList.contains('iphone-hero-scroll');
 
+            function syncIphoneSafeAreaTop() {
+                if (!iphoneScroll) return;
+                var vv = window.visualViewport;
+                var extra = 0;
+                if (vv && typeof vv.offsetTop === 'number' && vv.offsetTop > 0) {
+                    extra = Math.round(vv.offsetTop);
+                }
+                document.documentElement.style.setProperty('--ios-vv-offset-top', extra + 'px');
+            }
+
             /** Desktop: altura em px. iPhone mobile: sem altura fixa (classe iphone-hero-scroll). */
             function applyHeroViewport() {
                 var el = document.querySelector('header.hero-section');
@@ -944,6 +957,7 @@
                     el.style.removeProperty('height');
                     el.style.removeProperty('min-height');
                     el.style.removeProperty('max-height');
+                    syncIphoneSafeAreaTop();
                     return;
                 }
                 if (el) {
@@ -1036,10 +1050,12 @@
             });
             if (window.visualViewport) {
                 window.visualViewport.addEventListener('resize', function () {
+                    if (iphoneScroll) syncIphoneSafeAreaTop();
                     requestAnimationFrame(fitHero);
                 });
                 if (isIPhone()) {
                     window.visualViewport.addEventListener('scroll', function () {
+                        syncIphoneSafeAreaTop();
                         requestAnimationFrame(applyHeroViewport);
                         requestAnimationFrame(fitHero);
                     });
@@ -1060,6 +1076,7 @@
             setTimeout(applyHeroViewport, 100);
             setTimeout(applyHeroViewport, 400);
             window.addEventListener('pageshow', function () {
+                if (iphoneScroll) syncIphoneSafeAreaTop();
                 applyHeroViewport();
                 setTimeout(applyHeroViewport, 150);
             });
