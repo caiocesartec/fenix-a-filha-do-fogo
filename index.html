@@ -454,6 +454,88 @@
                 margin-top: clamp(0.35rem, 1.5vw, 0.65rem);
             }
         }
+        /*
+         * iPhone ~320px (SE 1ª geração, etc.): altura útil + conteúdo muito alto — só este intervalo.
+         */
+        @media (max-width: 320px) {
+            .hero-section {
+                min-height: 100dvh;
+                height: auto;
+                max-height: none;
+            }
+            .hero-stage {
+                flex: 1 1 auto;
+                min-height: 0;
+                padding-bottom: 3.5rem;
+            }
+            .hero-flow {
+                gap: 0.18rem;
+            }
+            .hero-phoenix-wrap {
+                width: clamp(4.75rem, 30vw, 6.5rem);
+                height: clamp(4.75rem, 30vw, 6.5rem);
+            }
+            .hero-subtitle {
+                font-size: clamp(0.95rem, 5.2vw, 1.35rem);
+                line-height: 1.06;
+                margin-top: 0.15rem;
+            }
+            .hero-desc {
+                font-size: 0.68rem;
+                line-height: 1.28;
+                margin-bottom: 0.2rem;
+                padding-left: 0.35rem;
+                padding-right: 0.35rem;
+            }
+            .hero-cta-card {
+                padding: 0.45rem 0.5rem;
+            }
+            .hero-cta-loc {
+                font-size: 0.72rem;
+                margin-bottom: 0.35rem;
+            }
+            .hero-cta-loc .mr-2 {
+                margin-right: 0.25rem;
+            }
+            .hero-maps-link {
+                padding: 0.4rem 0.45rem;
+                gap: 0.28rem;
+            }
+            .hero-maps-phoenix-ring {
+                width: 2.35rem;
+                height: 2.35rem;
+            }
+            .hero-maps-phoenix-icon {
+                font-size: 1.05rem;
+            }
+            .hero-maps-cta-text {
+                font-size: 0.72rem;
+            }
+            .hero-maps-addr {
+                font-size: 0.62rem;
+                line-height: 1.42;
+                padding-top: 0.3rem;
+            }
+            .hero-cta-date {
+                font-size: 0.68rem;
+                margin-top: 0.35rem;
+            }
+            .hero-apoio {
+                font-size: 0.62rem;
+                margin-top: 0.25rem;
+                padding-left: 0.35rem;
+                padding-right: 0.35rem;
+            }
+            .hero-scroll-hint {
+                font-size: 0.5rem;
+                letter-spacing: 0.1em;
+                gap: 0.15rem;
+                padding: 0.2rem 0;
+            }
+            .hero-scroll-hint i {
+                font-size: 0.85rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-neutral-950 text-neutral-200 font-montserrat antialiased selection:bg-fire-500 selection:text-white">
@@ -716,6 +798,7 @@
             function applyHeroViewport() {
                 var el = document.querySelector('header.hero-section');
                 var mobile = window.matchMedia('(max-width: 768px)').matches;
+                var narrow = window.matchMedia('(max-width: 320px)').matches;
                 var vv = window.visualViewport;
                 var ih = window.innerHeight || document.documentElement.clientHeight || 0;
                 var vvh = vv && typeof vv.height === 'number' && vv.height > 0 ? vv.height : ih;
@@ -726,9 +809,18 @@
                 document.documentElement.style.setProperty('--vh', (h * 0.01) + 'px');
                 if (el) {
                     if (mobile) {
-                        el.style.removeProperty('height');
-                        el.style.removeProperty('min-height');
-                        el.style.removeProperty('max-height');
+                        if (narrow && vv && vv.height > 200) {
+                            var vvH = Math.round(vv.height);
+                            el.style.setProperty('height', vvH + 'px', 'important');
+                            el.style.setProperty('min-height', vvH + 'px', 'important');
+                            el.style.setProperty('max-height', vvH + 'px', 'important');
+                            document.documentElement.style.setProperty('--app-vh', vvH + 'px');
+                            document.documentElement.style.setProperty('--vh', (vvH * 0.01) + 'px');
+                        } else {
+                            el.style.removeProperty('height');
+                            el.style.removeProperty('min-height');
+                            el.style.removeProperty('max-height');
+                        }
                     } else {
                         el.style.setProperty('height', h + 'px', 'important');
                         el.style.setProperty('min-height', h + 'px', 'important');
@@ -745,11 +837,19 @@
                 void shell.offsetHeight;
 
                 var mobile = window.matchMedia('(max-width: 768px)').matches;
+                var narrow = window.matchMedia('(max-width: 320px)').matches;
+                var stage = document.querySelector('.hero-stage');
                 var hAvail = header.clientHeight;
+                if (mobile && stage) {
+                    var cs = window.getComputedStyle(stage);
+                    var pt = parseFloat(cs.paddingTop) || 0;
+                    var pb = parseFloat(cs.paddingBottom) || 0;
+                    hAvail = Math.max(80, stage.clientHeight - pt - pb);
+                }
                 var wAvail = header.clientWidth;
                 var hContent = flow.scrollHeight;
                 var wContent = flow.scrollWidth;
-                var pad = mobile ? 0.94 : 0.97;
+                var pad = mobile ? (narrow ? 0.86 : 0.94) : 0.97;
                 var s = Math.min(1, (hAvail * pad) / hContent, (wAvail * pad) / wContent);
 
                 if (s < 1) {
