@@ -2,7 +2,22 @@
 <html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <script>
+        (function () {
+            function setAppVh() {
+                try {
+                    var h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+                    if (h > 0) document.documentElement.style.setProperty('--app-vh', h + 'px');
+                } catch (e) {}
+            }
+            setAppVh();
+            window.addEventListener('resize', setAppVh);
+            if (window.visualViewport) window.visualViewport.addEventListener('resize', setAppVh);
+            window.addEventListener('orientationchange', function () { setTimeout(setAppVh, 200); });
+            document.addEventListener('visibilitychange', function () { if (!document.hidden) setAppVh(); });
+        })();
+    </script>
     <title>Fênix: A Filha do Fogo - The Best</title>
     
     <!-- Favicon (Ícone da Aba) -->
@@ -46,9 +61,11 @@
         }
     </script>
     <style>
-        /* +10% em todo o site (escala rem do Tailwind) */
+        /* +10% em todo o site (escala rem do Tailwind); Safari iOS: altura útil da viewport */
         html {
             font-size: 110%;
+            min-height: 100%;
+            min-height: -webkit-fill-available;
         }
         .text-gradient {
             background-clip: text;
@@ -85,6 +102,16 @@
                 padding-top: clamp(0.35rem, 1.5dvh, 1.75rem);
                 padding-bottom: clamp(0.35rem, 1.5dvh, 1.75rem);
             }
+        }
+        /*
+         * Safari (iOS/macOS): 100vh/100dvh podem não coincidir com a janela visível.
+         * --app-vh vem do <head> (visualViewport.height ou innerHeight).
+         * Sem JS: cai em 100vh (comportamento anterior).
+         */
+        .hero-section {
+            height: var(--app-vh, 100vh);
+            max-height: var(--app-vh, 100vh);
+            min-height: var(--app-vh, 100vh);
         }
         .hero-stage {
             flex: 1 1 auto;
@@ -566,7 +593,13 @@
             var flow = document.querySelector('.hero-flow');
             if (!header || !shell || !flow) return;
 
+            function syncAppVh() {
+                var h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+                if (h > 0) document.documentElement.style.setProperty('--app-vh', h + 'px');
+            }
+
             function fitHero() {
+                syncAppVh();
                 flow.style.transform = '';
                 shell.style.width = '';
                 shell.style.height = '';
