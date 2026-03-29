@@ -504,18 +504,6 @@
         </div>
     </section>
 
-    <!-- Marcettes: logo no topo, foto em largura total -->
-    <section class="w-full bg-neutral-900 border-t border-neutral-800 overflow-hidden" aria-label="Marcettes">
-        <div class="flex flex-col">
-            <div class="flex justify-center bg-gradient-to-b from-neutral-950 via-neutral-900 to-neutral-900 px-6 py-10 sm:py-14">
-                <img src="images/logo-marcetes.png" alt="Marcettes" class="h-auto w-full max-w-xs object-contain sm:max-w-md md:max-w-lg" width="800" height="400" decoding="async" loading="lazy">
-            </div>
-            <figure class="m-0 w-full">
-                <img src="images/marcetes.png" alt="Grupo Marcettes" class="block h-auto w-full max-w-none" width="1600" height="1067" decoding="async" loading="lazy">
-            </figure>
-        </div>
-    </section>
-
     <!-- Elenco, Produção & Apoio -->
     <section class="py-20 px-4 bg-neutral-900 border-t border-neutral-800">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-14">
@@ -609,6 +597,25 @@
                     <img src="images/vozes.png" alt="Vozes da Passarela" class="w-full max-w-[16rem] h-auto object-contain" width="320" height="120" decoding="async" loading="lazy">
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Marcettes: por último — logo destacado + foto em largura total -->
+    <section class="marcettes-showcase w-full overflow-hidden border-t border-fire-700/35 bg-black" aria-label="Marcettes">
+        <div class="flex flex-col">
+            <div class="relative flex justify-center px-5 py-12 sm:px-8 sm:py-16 lg:py-20">
+                <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_75%_55%_at_50%_35%,rgba(255,102,0,0.12),transparent_65%)]" aria-hidden="true"></div>
+                <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-fire-500/40 to-transparent" aria-hidden="true"></div>
+                <div class="relative z-10 w-full max-w-2xl rounded-2xl border border-fire-600/30 bg-neutral-950/70 p-8 shadow-[0_0_50px_rgba(255,102,0,0.14),inset_0_1px_0_rgba(255,179,102,0.12)] backdrop-blur-md sm:max-w-3xl sm:p-10 md:p-12">
+                    <p class="font-cinzel mb-5 text-center text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-fire-400/90 sm:text-xs sm:tracking-[0.4em]">Marcettes</p>
+                    <div class="flex justify-center">
+                        <img src="images/logo-marcetes.png" alt="Marcettes" class="marcettes-logo-img h-auto w-full max-w-[min(100%,20rem)] object-contain drop-shadow-[0_0_28px_rgba(255,179,102,0.45)] sm:max-w-md md:max-w-xl" width="800" height="400" decoding="async" loading="lazy">
+                    </div>
+                </div>
+            </div>
+            <figure class="m-0 w-full border-t border-neutral-800/80">
+                <img src="images/marcetes.png" alt="Grupo Marcettes" class="block h-auto w-full max-w-none" width="1600" height="1067" decoding="async" loading="lazy">
+            </figure>
         </div>
     </section>
 
