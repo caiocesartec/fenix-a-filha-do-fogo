@@ -497,6 +497,45 @@
             }
         }
         /*
+         * ≤400px: usar quase toda a largura — menos padding lateral no hero e no cartão.
+         */
+        @media (max-width: 400px) {
+            .hero-section {
+                padding-left: max(0.3rem, env(safe-area-inset-left, 0px));
+                padding-right: max(0.3rem, env(safe-area-inset-right, 0px));
+            }
+            .hero-flow {
+                max-width: 100%;
+                width: 100%;
+            }
+            .hero-desc {
+                max-width: 100%;
+                padding-left: 0.2rem;
+                padding-right: 0.2rem;
+            }
+            .hero-cta-card {
+                max-width: 100%;
+                padding-left: 0.45rem;
+                padding-right: 0.45rem;
+            }
+            .hero-maps-link {
+                max-width: 100%;
+                padding-left: 0.42rem;
+                padding-right: 0.42rem;
+            }
+            .hero-maps-addr {
+                max-width: 100%;
+            }
+            .hero-apoio {
+                padding-left: 0.2rem;
+                padding-right: 0.2rem;
+                max-width: 100%;
+            }
+            .hero-scroll-hint {
+                right: max(0.28rem, env(safe-area-inset-right, 0px));
+            }
+        }
+        /*
          * iPhone ~320px (SE 1ª geração, etc.): altura útil + conteúdo muito alto — só este intervalo.
          */
         @media (max-width: 320px) {
@@ -506,6 +545,8 @@
                 max-height: none;
                 padding-top: max(0.45rem, env(safe-area-inset-top, 0px));
                 padding-bottom: max(0.2rem, env(safe-area-inset-bottom, 0px));
+                padding-left: max(0.22rem, env(safe-area-inset-left, 0px));
+                padding-right: max(0.22rem, env(safe-area-inset-right, 0px));
             }
             /* Centrar na vertical + scale(top) cortava o topo; ancora no topo do stage */
             .hero-stage {
@@ -541,11 +582,11 @@
                 font-size: 0.68rem;
                 line-height: 1.28;
                 margin-bottom: 0.2rem;
-                padding-left: 0.35rem;
-                padding-right: 0.35rem;
+                padding-left: 0.08rem;
+                padding-right: 0.08rem;
             }
             .hero-cta-card {
-                padding: 0.45rem 0.5rem;
+                padding: 0.45rem 0.28rem;
             }
             .hero-cta-loc {
                 font-size: 0.72rem;
@@ -555,7 +596,7 @@
                 margin-right: 0.25rem;
             }
             .hero-maps-link {
-                padding: 0.4rem 0.45rem;
+                padding: 0.4rem 0.3rem;
                 gap: 0.28rem;
             }
             .hero-maps-phoenix-ring {
@@ -584,8 +625,8 @@
             .hero-apoio {
                 font-size: 0.62rem;
                 margin-top: 0.25rem;
-                padding-left: 0.35rem;
-                padding-right: 0.35rem;
+                padding-left: 0.08rem;
+                padding-right: 0.08rem;
             }
             .hero-scroll-hint {
                 font-size: 0.5rem;
@@ -905,7 +946,7 @@
                 void shell.offsetHeight;
 
                 var mobile = window.matchMedia('(max-width: 768px)').matches;
-                var narrow = window.matchMedia('(max-width: 320px)').matches;
+                var narrow = window.matchMedia('(max-width: 400px)').matches;
                 var iphone = isIPhone();
                 var stage = document.querySelector('.hero-stage');
                 var hAvail = header.clientHeight;
