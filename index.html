@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <script>
+        /* Primeiro frame: innerHeight já existe; --vh = 1% real (truque clássico iOS) */
         (function () {
-            function setAppVh() {
+            function setRootVh() {
                 try {
-                    var h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
-                    if (h > 0) document.documentElement.style.setProperty('--app-vh', h + 'px');
+                    var h = window.innerHeight;
+                    if (h > 0) {
+                        document.documentElement.style.setProperty('--app-vh', h + 'px');
+                        document.documentElement.style.setProperty('--vh', (h * 0.01) + 'px');
+                    }
                 } catch (e) {}
             }
-            setAppVh();
-            window.addEventListener('resize', setAppVh);
-            if (window.visualViewport) window.visualViewport.addEventListener('resize', setAppVh);
-            window.addEventListener('orientationchange', function () { setTimeout(setAppVh, 200); });
-            document.addEventListener('visibilitychange', function () { if (!document.hidden) setAppVh(); });
+            setRootVh();
+            window.addEventListener('resize', setRootVh);
+            window.addEventListener('orientationchange', function () { setTimeout(setRootVh, 50); setTimeout(setRootVh, 300); });
         })();
     </script>
     <title>Fênix: A Filha do Fogo - The Best</title>
@@ -67,6 +69,10 @@
             min-height: 100%;
             min-height: -webkit-fill-available;
         }
+        body {
+            min-height: 100%;
+            min-height: -webkit-fill-available;
+        }
         .text-gradient {
             background-clip: text;
             -webkit-background-clip: text;
@@ -104,14 +110,13 @@
             }
         }
         /*
-         * Safari (iOS/macOS): 100vh/100dvh podem não coincidir com a janela visível.
-         * --app-vh vem do <head> (visualViewport.height ou innerHeight).
-         * Sem JS: cai em 100vh (comportamento anterior).
+         * iOS: --vh = innerHeight/100 em px → calc(*100) evita bug do 100vh.
+         * Fallback 1vh só se JS falhar.
          */
         .hero-section {
-            height: var(--app-vh, 100vh);
-            max-height: var(--app-vh, 100vh);
-            min-height: var(--app-vh, 100vh);
+            height: calc(var(--vh, 1vh) * 100);
+            max-height: calc(var(--vh, 1vh) * 100);
+            min-height: calc(var(--vh, 1vh) * 100);
         }
         .hero-stage {
             flex: 1 1 auto;
@@ -342,8 +347,8 @@
                 line-height: 1.1;
             }
             .hero-desc {
-                font-size: clamp(0.94rem, 4.515vw, 1.272rem);
-                line-height: 1.52;
+                font-size: clamp(0.78rem, 3.35vw, 1.02rem);
+                line-height: 1.38;
             }
             .hero-cta-card {
                 padding: clamp(1.1rem, 5.5vw, 2rem) clamp(0.95rem, 5vw, 1.65rem);
@@ -593,13 +598,29 @@
             var flow = document.querySelector('.hero-flow');
             if (!header || !shell || !flow) return;
 
-            function syncAppVh() {
-                var h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
-                if (h > 0) document.documentElement.style.setProperty('--app-vh', h + 'px');
+            /** iPhone/Safari: visualViewport.height = zona visível (barra URL); senão innerHeight */
+            function applyHeroViewport() {
+                var el = document.querySelector('header.hero-section');
+                var vv = window.visualViewport;
+                var ih = window.innerHeight || document.documentElement.clientHeight || 0;
+                var h = 0;
+                if (vv && typeof vv.height === 'number' && vv.height > 0) {
+                    h = Math.round(vv.height);
+                } else if (ih > 0) {
+                    h = Math.round(ih);
+                }
+                if (h < 200) return;
+                document.documentElement.style.setProperty('--app-vh', h + 'px');
+                document.documentElement.style.setProperty('--vh', (h * 0.01) + 'px');
+                if (el) {
+                    el.style.setProperty('height', h + 'px', 'important');
+                    el.style.setProperty('min-height', h + 'px', 'important');
+                    el.style.setProperty('max-height', h + 'px', 'important');
+                }
             }
 
             function fitHero() {
-                syncAppVh();
+                applyHeroViewport();
                 flow.style.transform = '';
                 shell.style.width = '';
                 shell.style.height = '';
@@ -649,8 +670,15 @@
             window.addEventListener('load', function () {
                 requestAnimationFrame(fitHero);
             });
+            applyHeroViewport();
             requestAnimationFrame(function () {
                 requestAnimationFrame(fitHero);
+            });
+            setTimeout(applyHeroViewport, 100);
+            setTimeout(applyHeroViewport, 400);
+            window.addEventListener('pageshow', function () {
+                applyHeroViewport();
+                setTimeout(applyHeroViewport, 150);
             });
         })();
     </script>
