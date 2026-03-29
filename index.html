@@ -8,7 +8,10 @@
         (function () {
             function setRootVh() {
                 try {
-                    var h = window.innerHeight;
+                    var ih = window.innerHeight;
+                    var vv = window.visualViewport;
+                    var vvh = vv && vv.height > 0 ? vv.height : ih;
+                    var h = ih > 0 && vvh > 0 ? Math.min(ih, vvh) : (ih || vvh);
                     if (h > 0) {
                         document.documentElement.style.setProperty('--app-vh', h + 'px');
                         document.documentElement.style.setProperty('--vh', (h * 0.01) + 'px');
@@ -181,7 +184,7 @@
             font-weight: 700;
             font-size: clamp(0.95rem, min(4vh, 5vmin), 2.65rem);
             line-height: 1.12;
-            margin-top: 10px;
+            margin-top: clamp(0.4rem, 1.2vw, 0.65rem);
             padding-left: 0.25rem;
             padding-right: 0.25rem;
             padding-bottom: 0.1rem;
@@ -192,7 +195,7 @@
             max-width: 42rem;
             margin-left: auto;
             margin-right: auto;
-            margin-bottom: 10px;
+            margin-bottom: clamp(0.35rem, 1vw, 0.65rem);
             padding-left: 0.75rem;
             padding-right: 0.75rem;
             font-size: clamp(0.663rem, min(1.613vh, 1.843vmin), 1.106rem);
@@ -216,7 +219,7 @@
             color: #ffb366;
             font-weight: 600;
             font-size: clamp(0.72rem, 1.75vh, 1.1rem);
-            margin-bottom: 20px;
+            margin-bottom: clamp(0.65rem, 2.2vw, 1.1rem);
         }
         .hero-maps-wrap {
             margin-top: clamp(0.25rem, 0.9vmin, 0.65rem);
@@ -313,7 +316,7 @@
         .hero-cta-date {
             font-size: clamp(0.6rem, min(1.25vh, 1.4vmin), 0.88rem);
             color: #a3a3a3;
-            margin-top: 20px;
+            margin-top: clamp(0.65rem, 2.2vw, 1.1rem);
         }
         .hero-apoio {
             font-family: Cinzel, serif;
@@ -329,36 +332,47 @@
             color: #ffb366;
             font-weight: 700;
         }
-        /* Mobile: letras maiores; sem scale no JS — scroll suave se precisar */
+        /*
+         * Mobile / iPhone: 100svh ≈ ecrã com barra de URL; safe-area para home indicator.
+         * Sem scroll interno no hero — o JS aplica scale para caber tudo no 1.º ecrã.
+         */
         @media (max-width: 768px) {
             .hero-section {
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
+                height: 100svh;
+                max-height: 100svh;
+                min-height: 100svh;
+                overflow-x: hidden;
+                overflow-y: hidden;
+                padding-top: clamp(0.25rem, 1.2vw, 0.75rem);
+                padding-bottom: max(0.35rem, env(safe-area-inset-bottom, 0px));
             }
             .hero-flow {
-                gap: clamp(0.4rem, 2.8vw, 1rem);
+                gap: clamp(0.28rem, 2vw, 0.75rem);
             }
             .hero-phoenix-wrap {
-                width: clamp(7.5rem, 52vw, 13rem);
-                height: clamp(7.5rem, 52vw, 13rem);
+                width: clamp(6.25rem, 42vw, 11rem);
+                height: clamp(6.25rem, 42vw, 11rem);
             }
             .hero-subtitle {
-                font-size: clamp(1.42rem, 7.2vw, 2.45rem);
-                line-height: 1.1;
+                font-size: clamp(1.15rem, 5.8vw, 2rem);
+                line-height: 1.08;
+                margin-top: clamp(0.25rem, 1vw, 0.5rem);
             }
             .hero-desc {
-                font-size: clamp(0.78rem, 3.35vw, 1.02rem);
-                line-height: 1.38;
+                font-size: clamp(0.72rem, 3vw, 0.95rem);
+                line-height: 1.32;
+                margin-bottom: clamp(0.28rem, 1vw, 0.5rem);
             }
             .hero-cta-card {
-                padding: clamp(1.1rem, 5.5vw, 2rem) clamp(0.95rem, 5vw, 1.65rem);
+                padding: clamp(0.65rem, 3.8vw, 1.35rem) clamp(0.75rem, 4vw, 1.25rem);
             }
             .hero-cta-loc {
-                font-size: clamp(0.95rem, 4.3vw, 1.18rem);
+                font-size: clamp(0.82rem, 3.6vw, 1.05rem);
+                margin-bottom: clamp(0.45rem, 1.8vw, 0.75rem);
             }
             .hero-maps-link {
-                padding: clamp(0.65rem, 3.8vw, 1.25rem) clamp(0.95rem, 4.5vw, 1.35rem);
-                gap: clamp(0.45rem, 2.8vw, 1rem);
+                padding: clamp(0.5rem, 3vw, 1rem) clamp(0.75rem, 3.8vw, 1.15rem);
+                gap: clamp(0.35rem, 2.2vw, 0.75rem);
             }
             .hero-maps-phoenix-ring {
                 width: clamp(3rem, 14vw, 5rem);
@@ -374,10 +388,12 @@
                 font-size: clamp(0.8rem, 3.8vw, 0.98rem);
             }
             .hero-cta-date {
-                font-size: clamp(0.86rem, 4vw, 1rem);
+                font-size: clamp(0.78rem, 3.4vw, 0.92rem);
+                margin-top: clamp(0.45rem, 1.8vw, 0.75rem);
             }
             .hero-apoio {
-                font-size: clamp(0.84rem, 4vw, 1.05rem);
+                font-size: clamp(0.74rem, 3.2vw, 0.95rem);
+                margin-top: clamp(0.35rem, 1.5vw, 0.65rem);
             }
         }
     </style>
@@ -598,24 +614,28 @@
             var flow = document.querySelector('.hero-flow');
             if (!header || !shell || !flow) return;
 
-            /** iPhone/Safari: visualViewport.height = zona visível (barra URL); senão innerHeight */
+            /** Desktop: altura em px evita bug 100vh. Mobile: CSS 100svh — não forçar inline (iOS). */
             function applyHeroViewport() {
                 var el = document.querySelector('header.hero-section');
+                var mobile = window.matchMedia('(max-width: 768px)').matches;
                 var vv = window.visualViewport;
                 var ih = window.innerHeight || document.documentElement.clientHeight || 0;
-                var h = 0;
-                if (vv && typeof vv.height === 'number' && vv.height > 0) {
-                    h = Math.round(vv.height);
-                } else if (ih > 0) {
-                    h = Math.round(ih);
-                }
+                var vvh = vv && typeof vv.height === 'number' && vv.height > 0 ? vv.height : ih;
+                var h = ih > 0 && vvh > 0 ? Math.min(ih, vvh) : (vvh || ih);
+                h = Math.round(h);
                 if (h < 200) return;
                 document.documentElement.style.setProperty('--app-vh', h + 'px');
                 document.documentElement.style.setProperty('--vh', (h * 0.01) + 'px');
                 if (el) {
-                    el.style.setProperty('height', h + 'px', 'important');
-                    el.style.setProperty('min-height', h + 'px', 'important');
-                    el.style.setProperty('max-height', h + 'px', 'important');
+                    if (mobile) {
+                        el.style.removeProperty('height');
+                        el.style.removeProperty('min-height');
+                        el.style.removeProperty('max-height');
+                    } else {
+                        el.style.setProperty('height', h + 'px', 'important');
+                        el.style.setProperty('min-height', h + 'px', 'important');
+                        el.style.setProperty('max-height', h + 'px', 'important');
+                    }
                 }
             }
 
@@ -626,20 +646,20 @@
                 shell.style.height = '';
                 void shell.offsetHeight;
 
-                /* Em mobile não aplicar scale: mantém tipografia legível (CSS @media) */
-                if (window.matchMedia('(max-width: 768px)').matches) {
-                    return;
-                }
-
+                var mobile = window.matchMedia('(max-width: 768px)').matches;
                 var hAvail = header.clientHeight;
                 var wAvail = header.clientWidth;
                 var hContent = flow.scrollHeight;
                 var wContent = flow.scrollWidth;
-                var pad = 0.97;
+                var pad = mobile ? 0.94 : 0.97;
                 var s = Math.min(1, (hAvail * pad) / hContent, (wAvail * pad) / wContent);
 
                 if (s < 1) {
-                    flow.style.transformOrigin = 'top left';
+                    if (mobile) {
+                        flow.style.transformOrigin = 'top center';
+                    } else {
+                        flow.style.transformOrigin = 'top left';
+                    }
                     flow.style.transform = 'scale(' + s + ')';
                     shell.style.width = Math.max(1, Math.ceil(wContent * s)) + 'px';
                     shell.style.height = Math.max(1, Math.ceil(hContent * s)) + 'px';
