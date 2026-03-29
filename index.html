@@ -70,6 +70,8 @@
             height: 100vh;
             max-height: 100vh;
             min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: hidden;
             padding-left: clamp(0.75rem, 2vw, 1.5rem);
             padding-right: clamp(0.75rem, 2vw, 1.5rem);
             padding-top: clamp(0.35rem, 1.5vh, 1.75rem);
@@ -147,6 +149,7 @@
             font-weight: 700;
             font-size: clamp(0.95rem, min(4vh, 5vmin), 2.65rem);
             line-height: 1.12;
+            margin-top: 10px;
             padding-left: 0.25rem;
             padding-right: 0.25rem;
             padding-bottom: 0.1rem;
@@ -157,6 +160,7 @@
             max-width: 42rem;
             margin-left: auto;
             margin-right: auto;
+            margin-bottom: 10px;
             padding-left: 0.75rem;
             padding-right: 0.75rem;
             font-size: clamp(0.72rem, min(1.75vh, 2vmin), 1.2rem);
@@ -173,13 +177,14 @@
             background: rgba(23, 23, 23, 0.8);
             backdrop-filter: blur(8px);
             border-radius: 0.5rem;
-            padding: clamp(0.5rem, min(1.5vh, 1.8vmin), 1.25rem);
+            padding: clamp(1rem, min(2.4vh, 2.6vmin), 2.25rem) clamp(0.85rem, min(2vh, 2.2vmin), 1.75rem);
             box-shadow: 0 0 clamp(10px, 1.5vh, 18px) rgba(255, 102, 0, 0.2);
         }
         .hero-cta-loc {
             color: #ffb366;
             font-weight: 600;
             font-size: clamp(0.72rem, 1.75vh, 1.1rem);
+            margin-bottom: 20px;
         }
         .hero-maps-wrap {
             margin-top: clamp(0.25rem, 0.9vmin, 0.65rem);
@@ -276,7 +281,7 @@
         .hero-cta-date {
             font-size: clamp(0.6rem, min(1.25vh, 1.4vmin), 0.88rem);
             color: #a3a3a3;
-            margin-top: clamp(0.3rem, 0.9vmin, 0.75rem);
+            margin-top: 20px;
         }
         .hero-apoio {
             font-family: Cinzel, serif;
@@ -292,12 +297,63 @@
             color: #ffb366;
             font-weight: 700;
         }
+        /* Mobile: letras maiores; sem scale no JS — scroll suave se precisar */
+        @media (max-width: 768px) {
+            .hero-section {
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .hero-flow {
+                gap: clamp(0.4rem, 2.8vw, 1rem);
+            }
+            .hero-phoenix-wrap {
+                width: clamp(7.5rem, 52vw, 13rem);
+                height: clamp(7.5rem, 52vw, 13rem);
+            }
+            .hero-subtitle {
+                font-size: clamp(1.42rem, 7.2vw, 2.45rem);
+                line-height: 1.1;
+            }
+            .hero-desc {
+                font-size: clamp(1.02rem, 4.9vw, 1.38rem);
+                line-height: 1.52;
+            }
+            .hero-cta-card {
+                padding: clamp(1.1rem, 5.5vw, 2rem) clamp(0.95rem, 5vw, 1.65rem);
+            }
+            .hero-cta-loc {
+                font-size: clamp(0.95rem, 4.3vw, 1.18rem);
+            }
+            .hero-maps-link {
+                padding: clamp(0.65rem, 3.8vw, 1.25rem) clamp(0.95rem, 4.5vw, 1.35rem);
+                gap: clamp(0.45rem, 2.8vw, 1rem);
+            }
+            .hero-maps-phoenix-ring {
+                width: clamp(3rem, 14vw, 5rem);
+                height: clamp(3rem, 14vw, 5rem);
+            }
+            .hero-maps-phoenix-icon {
+                font-size: clamp(1.38rem, 6vw, 2.5rem);
+            }
+            .hero-maps-cta-text {
+                font-size: clamp(0.9rem, 4.4vw, 1.12rem);
+            }
+            .hero-maps-addr {
+                font-size: clamp(0.8rem, 3.8vw, 0.98rem);
+            }
+            .hero-cta-date {
+                font-size: clamp(0.86rem, 4vw, 1rem);
+            }
+            .hero-apoio {
+                font-size: clamp(0.84rem, 4vw, 1.05rem);
+            }
+        }
     </style>
 </head>
 <body class="bg-neutral-950 text-neutral-200 font-montserrat antialiased selection:bg-fire-500 selection:text-white">
 
     <!-- Hero Section -->
-    <header class="hero-section relative overflow-hidden border-b-4 border-fire-700 bg-neutral-950">
+    <header class="hero-section relative border-b-4 border-fire-700 bg-neutral-950">
         
         <!-- Fundo: cópia local de Commons File:Tina Turner.jpg (Les Zg, CC BY-SA 4.0). A URL Tina_Turner_1989.jpg deixou de existir no Commons (404). -->
         <div class="absolute inset-0 z-0 grayscale opacity-[0.38] bg-cover bg-center bg-no-repeat" 
@@ -515,6 +571,11 @@
                 shell.style.width = '';
                 shell.style.height = '';
                 void shell.offsetHeight;
+
+                /* Em mobile não aplicar scale: mantém tipografia legível (CSS @media) */
+                if (window.matchMedia('(max-width: 768px)').matches) {
+                    return;
+                }
 
                 var hAvail = header.clientHeight;
                 var wAvail = header.clientWidth;
