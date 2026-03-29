@@ -462,14 +462,29 @@
                 min-height: 100dvh;
                 height: auto;
                 max-height: none;
+                padding-top: max(0.45rem, env(safe-area-inset-top, 0px));
+                padding-bottom: max(0.2rem, env(safe-area-inset-bottom, 0px));
             }
+            /* Centrar na vertical + scale(top) cortava o topo; ancora no topo do stage */
             .hero-stage {
                 flex: 1 1 auto;
                 min-height: 0;
+                align-items: flex-start;
+                justify-content: center;
+                padding-top: 0.15rem;
                 padding-bottom: 3.5rem;
+            }
+            .hero-fit-shell {
+                align-self: stretch;
+                align-items: flex-start;
+                justify-content: center;
+                overflow-x: hidden;
+                overflow-y: visible;
+                max-width: 100%;
             }
             .hero-flow {
                 gap: 0.18rem;
+                justify-content: flex-start;
             }
             .hero-phoenix-wrap {
                 width: clamp(4.75rem, 30vw, 6.5rem);
@@ -849,7 +864,8 @@
                 var wAvail = header.clientWidth;
                 var hContent = flow.scrollHeight;
                 var wContent = flow.scrollWidth;
-                var pad = mobile ? (narrow ? 0.86 : 0.94) : 0.97;
+                /* Narrow: um pouco mais de folga vertical (evita micro-corte com border/shell) */
+                var pad = mobile ? (narrow ? 0.84 : 0.94) : 0.97;
                 var s = Math.min(1, (hAvail * pad) / hContent, (wAvail * pad) / wContent);
 
                 if (s < 1) {
