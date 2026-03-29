@@ -92,13 +92,15 @@
         .hero-scroll-hint {
             position: absolute;
             bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
-            left: max(clamp(0.75rem, 2vw, 1.5rem), env(safe-area-inset-left, 0px));
+            right: max(clamp(0.75rem, 2vw, 1.5rem), env(safe-area-inset-right, 0px));
+            left: auto;
             z-index: 20;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            gap: 0.2rem;
-            padding: 0.35rem 0.5rem 0.35rem 0;
+            align-items: flex-end;
+            gap: 0.25rem;
+            padding: 0.35rem 0;
+            text-align: right;
             color: #ffb366;
             text-decoration: none;
             font-family: Montserrat, sans-serif;
@@ -114,6 +116,13 @@
             outline: 2px solid rgba(255, 179, 102, 0.85);
             outline-offset: 3px;
             border-radius: 0.25rem;
+        }
+        .hero-scroll-hint-lines {
+            display: block;
+        }
+        .hero-scroll-hint-line {
+            display: block;
+            line-height: 1.22;
         }
         .hero-scroll-hint i {
             font-size: clamp(1rem, 2.8vmin, 1.35rem);
@@ -499,7 +508,11 @@
         </div>
 
         <a href="#manifesto" class="hero-scroll-hint" aria-label="Deslize ou role a página para ver mais conteúdo">
-            <span>Role para baixo</span>
+            <span class="hero-scroll-hint-lines">
+                <span class="hero-scroll-hint-line">Role</span>
+                <span class="hero-scroll-hint-line">para</span>
+                <span class="hero-scroll-hint-line">baixo</span>
+            </span>
             <i class="fas fa-chevron-down" aria-hidden="true"></i>
         </a>
     </header>
