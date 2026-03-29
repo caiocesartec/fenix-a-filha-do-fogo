@@ -629,8 +629,8 @@
             -webkit-overflow-scrolling: touch;
             overscroll-behavior-y: contain;
             /* Safari: barra de URL / status — safe-area + fallback 20px (iPhone sem entalhe) + offset do visualViewport */
-            padding-top: calc(env(safe-area-inset-top, 24px) + 12px + var(--ios-vv-offset-top, 0px)) !important;
-            padding-bottom: max(12px, env(safe-area-inset-bottom, 0px)) !important;
+            padding-top: calc(env(safe-area-inset-top, 18px) + 6px + var(--ios-vv-offset-top, 0px)) !important;
+            padding-bottom: max(8px, env(safe-area-inset-bottom, 0px)) !important;
         }
         @supports (height: 100svh) {
             html.iphone-hero-scroll .hero-section {
@@ -642,8 +642,8 @@
             min-height: 0;
             align-items: flex-start;
             justify-content: flex-start;
-            padding-top: 0.2rem;
-            padding-bottom: 2.5rem;
+            padding-top: 0.1rem;
+            padding-bottom: 2.1rem;
         }
         html.iphone-hero-scroll .hero-fit-shell {
             overflow: visible !important;
