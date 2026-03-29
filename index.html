@@ -92,7 +92,7 @@
         .hero-scroll-hint {
             position: absolute;
             bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
-            right: max(clamp(0.75rem, 2vw, 1.5rem), env(safe-area-inset-right, 0px));
+            right: max(15px, env(safe-area-inset-right, 0px));
             left: auto;
             z-index: 20;
             display: flex;
@@ -156,8 +156,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             overflow-y: hidden;
-            padding-left: clamp(0.75rem, 2vw, 1.5rem);
-            padding-right: clamp(0.75rem, 2vw, 1.5rem);
+            padding-left: max(15px, env(safe-area-inset-left, 0px));
+            padding-right: max(15px, env(safe-area-inset-right, 0px));
             padding-top: clamp(0.35rem, 1.5vh, 1.75rem);
             padding-bottom: clamp(0.35rem, 1.5vh, 1.75rem);
         }
@@ -194,10 +194,12 @@
             position: relative;
             overflow: hidden;
             flex-shrink: 0;
+            width: 100%;
             max-width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-sizing: border-box;
         }
         @supports (height: 100dvh) {
             .hero-flow {
@@ -212,10 +214,11 @@
             text-align: center;
             gap: clamp(0.2rem, 1.1vh, 1rem);
             width: 100%;
-            max-width: 56rem;
+            max-width: 100%;
             margin-left: auto;
             margin-right: auto;
             transform-origin: top left;
+            box-sizing: border-box;
         }
         /* Logo principal (imagem marcetes) */
         .hero-phoenix-wrap {
@@ -243,19 +246,20 @@
             font-size: clamp(1.045rem, min(4.4vh, 5.5vmin), 2.915rem);
             line-height: 1.12;
             margin-top: clamp(0.4rem, 1.2vw, 0.65rem);
-            padding-left: 0.25rem;
-            padding-right: 0.25rem;
+            padding-left: 0;
+            padding-right: 0;
             padding-bottom: 0.1rem;
+            max-width: 100%;
         }
         .hero-desc {
             font-weight: 300;
             color: #d4d4d4;
-            max-width: 42rem;
+            max-width: 100%;
             margin-left: auto;
             margin-right: auto;
             margin-bottom: clamp(0.35rem, 1vw, 0.65rem);
-            padding-left: 0.75rem;
-            padding-right: 0.75rem;
+            padding-left: 0;
+            padding-right: 0;
             font-size: clamp(0.73rem, min(1.77vh, 2.03vmin), 1.217rem);
             line-height: 1.45;
         }
@@ -265,12 +269,13 @@
             margin-right: auto;
             display: block;
             max-width: 100%;
+            width: 100%;
             text-align: center;
             border: 1px solid rgba(255, 102, 0, 0.5);
             background: rgba(23, 23, 23, 0.8);
             backdrop-filter: blur(8px);
             border-radius: 0.5rem;
-            padding: clamp(1rem, min(2.4vh, 2.6vmin), 2.25rem) clamp(0.85rem, min(2vh, 2.2vmin), 1.75rem);
+            padding: clamp(1rem, min(2.4vh, 2.6vmin), 2.25rem) 0;
             box-shadow: 0 0 clamp(10px, 1.5vh, 18px) rgba(255, 102, 0, 0.2);
         }
         .hero-cta-loc {
@@ -288,14 +293,15 @@
         .hero-maps-link {
             display: flex;
             width: 100%;
-            max-width: 32rem;
+            max-width: 100%;
+            box-sizing: border-box;
             flex-direction: column;
             align-items: center;
             gap: clamp(0.35rem, 1.15vh, 1rem);
             border-radius: 0.75rem;
             border: 2px solid rgba(255, 102, 0, 0.75);
             background: linear-gradient(to bottom, rgba(23, 23, 23, 0.95), rgba(10, 10, 10, 0.9), rgba(0, 0, 0, 0.85));
-            padding: clamp(0.55rem, 1.6vh, 1.35rem) clamp(0.85rem, 2.2vh, 1.35rem);
+            padding: clamp(0.55rem, 1.6vh, 1.35rem) 0;
             text-align: center;
             text-decoration: none;
             cursor: pointer;
@@ -355,21 +361,21 @@
             font-weight: 700;
             letter-spacing: 0.05em;
             font-size: clamp(0.748rem, 2.09vh, 1.155rem);
-            padding-left: 0.2rem;
-            padding-right: 0.2rem;
+            padding-left: 0;
+            padding-right: 0;
         }
         .hero-maps-addr {
             font-size: clamp(0.638rem, 1.485vh, 0.968rem);
             line-height: 1.5;
             color: #a3a3a3;
             font-weight: 300;
-            padding-left: 0.2rem;
-            padding-right: 0.2rem;
+            padding-left: 0;
+            padding-right: 0;
             border-top: 1px solid rgba(204, 51, 0, 0.4);
             padding-top: clamp(0.4rem, 1vh, 0.75rem);
             margin-top: 0.1rem;
             width: 100%;
-            max-width: 22rem;
+            max-width: 100%;
         }
         .hero-cta-date {
             font-size: clamp(0.66rem, min(1.375vh, 1.54vmin), 0.968rem);
@@ -398,7 +404,8 @@
             letter-spacing: 0.06em;
             color: #a3a3a3;
             margin-top: clamp(0.5rem, 1.4vmin, 1rem);
-            padding: 0 0.75rem;
+            padding: 0;
+            max-width: 100%;
             line-height: 1.4;
         }
         .hero-apoio span {
@@ -437,14 +444,14 @@
                 margin-bottom: clamp(0.28rem, 1vw, 0.5rem);
             }
             .hero-cta-card {
-                padding: clamp(0.65rem, 3.8vw, 1.35rem) clamp(0.75rem, 4vw, 1.25rem);
+                padding: clamp(0.65rem, 3.8vw, 1.35rem) 0;
             }
             .hero-cta-loc {
                 font-size: clamp(0.902rem, 3.96vw, 1.155rem);
                 margin-bottom: clamp(0.45rem, 1.8vw, 0.75rem);
             }
             .hero-maps-link {
-                padding: clamp(0.5rem, 3vw, 1rem) clamp(0.75rem, 3.8vw, 1.15rem);
+                padding: clamp(0.5rem, 3vw, 1rem) 0;
                 gap: clamp(0.35rem, 2.2vw, 0.75rem);
             }
             .hero-maps-phoenix-ring {
@@ -497,45 +504,6 @@
             }
         }
         /*
-         * ≤400px: usar quase toda a largura — menos padding lateral no hero e no cartão.
-         */
-        @media (max-width: 400px) {
-            .hero-section {
-                padding-left: max(0.3rem, env(safe-area-inset-left, 0px));
-                padding-right: max(0.3rem, env(safe-area-inset-right, 0px));
-            }
-            .hero-flow {
-                max-width: 100%;
-                width: 100%;
-            }
-            .hero-desc {
-                max-width: 100%;
-                padding-left: 0.2rem;
-                padding-right: 0.2rem;
-            }
-            .hero-cta-card {
-                max-width: 100%;
-                padding-left: 0.45rem;
-                padding-right: 0.45rem;
-            }
-            .hero-maps-link {
-                max-width: 100%;
-                padding-left: 0.42rem;
-                padding-right: 0.42rem;
-            }
-            .hero-maps-addr {
-                max-width: 100%;
-            }
-            .hero-apoio {
-                padding-left: 0.2rem;
-                padding-right: 0.2rem;
-                max-width: 100%;
-            }
-            .hero-scroll-hint {
-                right: max(0.28rem, env(safe-area-inset-right, 0px));
-            }
-        }
-        /*
          * iPhone ~320px (SE 1ª geração, etc.): altura útil + conteúdo muito alto — só este intervalo.
          */
         @media (max-width: 320px) {
@@ -545,8 +513,6 @@
                 max-height: none;
                 padding-top: max(0.45rem, env(safe-area-inset-top, 0px));
                 padding-bottom: max(0.2rem, env(safe-area-inset-bottom, 0px));
-                padding-left: max(0.22rem, env(safe-area-inset-left, 0px));
-                padding-right: max(0.22rem, env(safe-area-inset-right, 0px));
             }
             /* Centrar na vertical + scale(top) cortava o topo; ancora no topo do stage */
             .hero-stage {
@@ -582,11 +548,9 @@
                 font-size: 0.68rem;
                 line-height: 1.28;
                 margin-bottom: 0.2rem;
-                padding-left: 0.08rem;
-                padding-right: 0.08rem;
             }
             .hero-cta-card {
-                padding: 0.45rem 0.28rem;
+                padding: 0.45rem 0;
             }
             .hero-cta-loc {
                 font-size: 0.72rem;
@@ -596,7 +560,7 @@
                 margin-right: 0.25rem;
             }
             .hero-maps-link {
-                padding: 0.4rem 0.3rem;
+                padding: 0.4rem 0;
                 gap: 0.28rem;
             }
             .hero-maps-phoenix-ring {
@@ -625,8 +589,6 @@
             .hero-apoio {
                 font-size: 0.62rem;
                 margin-top: 0.25rem;
-                padding-left: 0.08rem;
-                padding-right: 0.08rem;
             }
             .hero-scroll-hint {
                 font-size: 0.5rem;
