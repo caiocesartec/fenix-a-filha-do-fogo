@@ -220,11 +220,11 @@
             transform-origin: top left;
             box-sizing: border-box;
         }
-        /* Logo principal (imagem marcetes) */
+        /* Logo principal — --hero-phoenix-side (px) reduz só o logo quando o JS precisa caber na viewport */
         .hero-phoenix-wrap {
             position: relative;
-            width: clamp(7rem, 38vmin, 17rem);
-            height: clamp(7rem, 38vmin, 17rem);
+            width: min(var(--hero-phoenix-side, 2400px), clamp(7rem, 38vmin, 17rem));
+            height: min(var(--hero-phoenix-side, 2400px), clamp(7rem, 38vmin, 17rem));
             margin: 0 auto;
             margin-bottom: clamp(-0.15rem, -0.25vmin, 0);
             display: flex;
@@ -413,25 +413,48 @@
             font-weight: 700;
         }
         /*
-         * Mobile / iPhone: 100svh ≈ ecrã com barra de URL; safe-area para home indicator.
-         * Sem scroll interno no hero — o JS aplica scale para caber tudo no 1.º ecrã.
+         * Mobile (≤768px): altura = --vh (uma viewport), overflow oculto;
+         * JS reduz primeiro o logo (--hero-phoenix-side); se ainda faltar espaço, escala o .hero-flow.
          */
         @media (max-width: 768px) {
             .hero-section {
-                height: 100svh;
-                max-height: 100svh;
-                min-height: 100svh;
-                overflow-x: hidden;
-                overflow-y: hidden;
-                padding-top: clamp(0.25rem, 1.2vw, 0.75rem);
-                padding-bottom: max(0.35rem, env(safe-area-inset-bottom, 0px));
+                height: calc(var(--vh, 1vh) * 100) !important;
+                max-height: calc(var(--vh, 1vh) * 100) !important;
+                min-height: calc(var(--vh, 1vh) * 100) !important;
+                overflow-x: hidden !important;
+                overflow-y: hidden !important;
+                padding-left: max(15px, env(safe-area-inset-left, 0px)) !important;
+                padding-right: max(15px, env(safe-area-inset-right, 0px)) !important;
+                padding-top: calc(max(10px, env(safe-area-inset-top, 0px)) + 8px + var(--mobile-vv-offset-top, 0px)) !important;
+                padding-bottom: max(10px, env(safe-area-inset-bottom, 0px)) !important;
+            }
+            .hero-stage {
+                flex: 1 0 auto;
+                min-height: 0;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding-top: 0.1rem;
+                padding-bottom: 2rem;
+            }
+            .hero-fit-shell {
+                overflow: visible !important;
+                height: auto !important;
+                min-height: 0;
+                width: 100% !important;
+                max-width: 100% !important;
+                align-self: stretch;
+                align-items: flex-start;
+                justify-content: flex-start;
             }
             .hero-flow {
                 gap: clamp(0.28rem, 2vw, 0.75rem);
+                width: 100% !important;
+                max-width: 100% !important;
+                justify-content: flex-start;
             }
             .hero-phoenix-wrap {
-                width: clamp(6.25rem, 42vw, 11rem);
-                height: clamp(6.25rem, 42vw, 11rem);
+                width: min(var(--hero-phoenix-side, 2400px), clamp(6.25rem, 42vw, 11rem));
+                height: min(var(--hero-phoenix-side, 2400px), clamp(6.25rem, 42vw, 11rem));
             }
             .hero-subtitle {
                 font-size: clamp(1.265rem, 6.38vw, 2.2rem);
@@ -477,67 +500,15 @@
             }
         }
         /*
-         * Safari no iPhone (WebKit): centragem vertical + scale(top) cortava o topo; Android não usa este @supports.
-         */
-        @supports (-webkit-touch-callout: none) {
-            @media (max-width: 768px) {
-                .hero-section {
-                    padding-top: max(0.35rem, env(safe-area-inset-top, 0px));
-                }
-                .hero-stage {
-                    align-items: flex-start;
-                    justify-content: center;
-                    padding-top: 0.15rem;
-                    padding-bottom: 3.25rem;
-                }
-                .hero-fit-shell {
-                    align-self: stretch;
-                    align-items: flex-start;
-                    justify-content: center;
-                    overflow-x: hidden;
-                    overflow-y: visible;
-                    max-width: 100%;
-                }
-                .hero-flow {
-                    justify-content: flex-start;
-                }
-            }
-        }
-        /*
-         * iPhone ~320px (SE 1ª geração, etc.): altura útil + conteúdo muito alto — só este intervalo.
+         * ≤320px: só tipografia/ícones mais compactos (layout igual ao mobile geral).
          */
         @media (max-width: 320px) {
-            .hero-section {
-                min-height: 100dvh;
-                height: auto;
-                max-height: none;
-                padding-top: max(0.45rem, env(safe-area-inset-top, 0px));
-                padding-bottom: max(0.2rem, env(safe-area-inset-bottom, 0px));
-            }
-            /* Centrar na vertical + scale(top) cortava o topo; ancora no topo do stage */
-            .hero-stage {
-                flex: 1 1 auto;
-                min-height: 0;
-                align-items: flex-start;
-                justify-content: center;
-                padding-top: 0.15rem;
-                padding-bottom: 3.5rem;
-            }
-            .hero-fit-shell {
-                align-self: stretch;
-                align-items: flex-start;
-                justify-content: center;
-                overflow-x: hidden;
-                overflow-y: visible;
-                max-width: 100%;
-            }
             .hero-flow {
                 gap: 0.18rem;
-                justify-content: flex-start;
             }
             .hero-phoenix-wrap {
-                width: clamp(4.75rem, 30vw, 6.5rem);
-                height: clamp(4.75rem, 30vw, 6.5rem);
+                width: min(var(--hero-phoenix-side, 2400px), clamp(4.75rem, 30vw, 6.5rem));
+                height: min(var(--hero-phoenix-side, 2400px), clamp(4.75rem, 30vw, 6.5rem));
             }
             .hero-subtitle {
                 font-size: clamp(0.95rem, 5.2vw, 1.35rem);
@@ -599,66 +570,6 @@
             .hero-scroll-hint i {
                 font-size: 0.85rem;
             }
-        }
-        /*
-         * Safari iPhone 320px: se a escala falhar por subpixels/barra URL, permite scroll mínimo no hero.
-         */
-        @supports (-webkit-touch-callout: none) {
-            @media (max-width: 320px) {
-                .hero-section {
-                    overflow-y: auto !important;
-                    -webkit-overflow-scrolling: touch;
-                    overscroll-behavior-y: contain;
-                }
-                .hero-stage {
-                    padding-bottom: 3rem;
-                }
-            }
-        }
-        /*
-         * iPhone (Safari): desliga altura fixa + scale no JS — evita cortes (ex.: iPhone 7 375×667).
-         * Hero com min-altura de ecrã e scroll suave se o conteúdo for mais alto.
-         */
-        html.iphone-hero-scroll .hero-section {
-            height: auto !important;
-            max-height: none !important;
-            min-height: 100vh !important;
-            min-height: -webkit-fill-available !important;
-            overflow-x: hidden !important;
-            overflow-y: auto !important;
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior-y: contain;
-            /* Safari: barra de URL / status — safe-area + fallback 20px (iPhone sem entalhe) + offset do visualViewport */
-            padding-top: calc(env(safe-area-inset-top, 18px) + 6px + var(--ios-vv-offset-top, 0px)) !important;
-            padding-bottom: max(8px, env(safe-area-inset-bottom, 0px)) !important;
-        }
-        @supports (height: 100svh) {
-            html.iphone-hero-scroll .hero-section {
-                min-height: 100svh !important;
-            }
-        }
-        html.iphone-hero-scroll .hero-stage {
-            flex: 1 0 auto;
-            min-height: 0;
-            align-items: flex-start;
-            justify-content: flex-start;
-            padding-top: 0.1rem;
-            padding-bottom: 2.1rem;
-        }
-        html.iphone-hero-scroll .hero-fit-shell {
-            overflow: visible !important;
-            height: auto !important;
-            min-height: 0;
-            width: 100% !important;
-            max-width: 100% !important;
-            align-items: flex-start;
-            justify-content: flex-start;
-        }
-        html.iphone-hero-scroll .hero-flow {
-            transform: none !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            justify-content: flex-start;
         }
     </style>
 </head>
@@ -916,35 +827,107 @@
 
     <script>
         (function () {
-            function isIPhone() {
-                return /iPhone/.test(navigator.userAgent || '');
-            }
-            if (isIPhone() && window.matchMedia('(max-width: 768px)').matches) {
-                document.documentElement.classList.add('iphone-hero-scroll');
-            }
-
             var header = document.querySelector('header.hero-section');
             var shell = document.querySelector('.hero-fit-shell');
             var flow = document.querySelector('.hero-flow');
+            var stage = document.querySelector('.hero-stage');
+            var phoenixWrap = document.querySelector('.hero-phoenix-wrap');
             if (!header || !shell || !flow) return;
 
-            var iphoneScroll = document.documentElement.classList.contains('iphone-hero-scroll');
+            var mqMobile = window.matchMedia('(max-width: 768px)');
 
-            function syncIphoneSafeAreaTop() {
-                if (!iphoneScroll) return;
+            function isMobileHero() {
+                return mqMobile.matches;
+            }
+
+            function syncMobileViewportTop() {
+                if (!isMobileHero()) {
+                    document.documentElement.style.setProperty('--mobile-vv-offset-top', '0px');
+                    return;
+                }
                 var vv = window.visualViewport;
                 var extra = 0;
                 if (vv && typeof vv.offsetTop === 'number' && vv.offsetTop > 0) {
                     extra = Math.round(vv.offsetTop);
                 }
-                document.documentElement.style.setProperty('--ios-vv-offset-top', extra + 'px');
+                document.documentElement.style.setProperty('--mobile-vv-offset-top', extra + 'px');
             }
 
-            /** Desktop: altura em px. iPhone mobile: sem altura fixa (classe iphone-hero-scroll). */
+            /** Altura útil dentro do stage (área do conteúdo do hero). */
+            function heroStageInnerHeight() {
+                var h = header.clientHeight;
+                if (stage) {
+                    var cs = window.getComputedStyle(stage);
+                    var pt = parseFloat(cs.paddingTop) || 0;
+                    var pb = parseFloat(cs.paddingBottom) || 0;
+                    h = Math.max(64, stage.clientHeight - pt - pb);
+                }
+                return h;
+            }
+
+            function clearPhoenixSide() {
+                if (phoenixWrap) phoenixWrap.style.removeProperty('--hero-phoenix-side');
+            }
+
+            /**
+             * Diminui só o logo (--hero-phoenix-side) até o fluxo caber em targetScrollH.
+             * Procura o maior lado possível ainda abaixo do alvo (binary search).
+             */
+            function shrinkPhoenixToFit(targetScrollH, minSidePx) {
+                minSidePx = Math.max(40, minSidePx || 52);
+                if (!phoenixWrap) return flow.scrollHeight <= targetScrollH;
+                clearPhoenixSide();
+                void flow.offsetHeight;
+                if (flow.scrollHeight <= targetScrollH) return true;
+
+                var maxSide = Math.max(1, Math.round(Math.max(phoenixWrap.offsetWidth, phoenixWrap.offsetHeight)));
+                if (maxSide <= minSidePx) {
+                    phoenixWrap.style.setProperty('--hero-phoenix-side', minSidePx + 'px');
+                    void flow.offsetHeight;
+                    return flow.scrollHeight <= targetScrollH;
+                }
+
+                var lo = minSidePx;
+                var hi = maxSide;
+                var best = minSidePx;
+                while (lo <= hi) {
+                    var mid = (lo + hi) >> 1;
+                    phoenixWrap.style.setProperty('--hero-phoenix-side', mid + 'px');
+                    void flow.offsetHeight;
+                    if (flow.scrollHeight <= targetScrollH) {
+                        best = mid;
+                        lo = mid + 1;
+                    } else {
+                        hi = mid - 1;
+                    }
+                }
+                phoenixWrap.style.setProperty('--hero-phoenix-side', best + 'px');
+                void flow.offsetHeight;
+                return flow.scrollHeight <= targetScrollH;
+            }
+
+            function applyFlowScale(pad) {
+                pad = pad == null ? 0.97 : pad;
+                var hAvail = heroStageInnerHeight();
+                var wAvail = header.clientWidth;
+                var hContent = flow.scrollHeight;
+                var wContent = flow.scrollWidth;
+                var s = Math.min(1, (hAvail * pad) / hContent, (wAvail * pad) / wContent);
+                if (s < 1 - 1e-6) {
+                    flow.style.transformOrigin = isMobileHero() ? 'top center' : 'top left';
+                    flow.style.transform = 'scale(' + s + ')';
+                    var rw = wContent * s;
+                    var rh = hContent * s;
+                    var dimW = isMobileHero() ? Math.max(1, Math.floor(rw)) : Math.max(1, Math.ceil(rw));
+                    var dimH = isMobileHero() ? Math.max(1, Math.floor(rh)) : Math.max(1, Math.ceil(rh));
+                    shell.style.width = dimW + 'px';
+                    shell.style.height = dimH + 'px';
+                }
+            }
+
+            /** Mobile e desktop: altura do header = viewport útil (--vh). */
             function applyHeroViewport() {
                 var el = document.querySelector('header.hero-section');
-                var mobile = window.matchMedia('(max-width: 768px)').matches;
-                var iphone = isIPhone();
                 var vv = window.visualViewport;
                 var ih = window.innerHeight || document.documentElement.clientHeight || 0;
                 var vvh = vv && typeof vv.height === 'number' && vv.height > 0 ? vv.height : ih;
@@ -953,32 +936,11 @@
                 if (h < 200) return;
                 document.documentElement.style.setProperty('--app-vh', h + 'px');
                 document.documentElement.style.setProperty('--vh', (h * 0.01) + 'px');
-                if (iphoneScroll && el) {
-                    el.style.removeProperty('height');
-                    el.style.removeProperty('min-height');
-                    el.style.removeProperty('max-height');
-                    syncIphoneSafeAreaTop();
-                    return;
-                }
+                syncMobileViewportTop();
                 if (el) {
-                    if (mobile) {
-                        if (iphone && vv && vv.height > 200) {
-                            var vvH = Math.round(vv.height);
-                            el.style.setProperty('height', vvH + 'px', 'important');
-                            el.style.setProperty('min-height', vvH + 'px', 'important');
-                            el.style.setProperty('max-height', vvH + 'px', 'important');
-                            document.documentElement.style.setProperty('--app-vh', vvH + 'px');
-                            document.documentElement.style.setProperty('--vh', (vvH * 0.01) + 'px');
-                        } else {
-                            el.style.removeProperty('height');
-                            el.style.removeProperty('min-height');
-                            el.style.removeProperty('max-height');
-                        }
-                    } else {
-                        el.style.setProperty('height', h + 'px', 'important');
-                        el.style.setProperty('min-height', h + 'px', 'important');
-                        el.style.setProperty('max-height', h + 'px', 'important');
-                    }
+                    el.style.setProperty('height', h + 'px', 'important');
+                    el.style.setProperty('min-height', h + 'px', 'important');
+                    el.style.setProperty('max-height', h + 'px', 'important');
                 }
             }
 
@@ -987,79 +949,53 @@
                 flow.style.transform = '';
                 shell.style.width = '';
                 shell.style.height = '';
+                clearPhoenixSide();
                 void shell.offsetHeight;
 
-                if (iphoneScroll) {
-                    return;
-                }
+                var innerH = heroStageInnerHeight();
+                var targetH = innerH * (isMobileHero() ? 0.96 : 0.97);
+                var minLogo = isMobileHero() ? 48 : 56;
 
-                var mobile = window.matchMedia('(max-width: 768px)').matches;
-                var narrow = window.matchMedia('(max-width: 400px)').matches;
-                var veryNarrow = window.matchMedia('(max-width: 320px)').matches;
-                var iphone = isIPhone();
-                var stage = document.querySelector('.hero-stage');
-                var hAvail = header.clientHeight;
-                if (mobile && stage) {
-                    var cs = window.getComputedStyle(stage);
-                    var pt = parseFloat(cs.paddingTop) || 0;
-                    var pb = parseFloat(cs.paddingBottom) || 0;
-                    hAvail = Math.max(80, stage.clientHeight - pt - pb);
-                }
-                if (iphone && veryNarrow) {
-                    var bBot = parseFloat(getComputedStyle(header).borderBottomWidth) || 0;
-                    hAvail = Math.max(64, hAvail - bBot - 12);
-                }
-                var wAvail = header.clientWidth;
-                var hContent = flow.scrollHeight;
-                var wContent = flow.scrollWidth;
-                var pad = 0.97;
-                if (mobile) {
-                    if (veryNarrow && iphone) pad = 0.75;
-                    else if (narrow) pad = 0.84;
-                    else if (iphone) pad = 0.9;
-                    else pad = 0.94;
-                }
-                var s = Math.min(1, (hAvail * pad) / hContent, (wAvail * pad) / wContent);
-
-                if (s < 1) {
-                    if (mobile) {
-                        flow.style.transformOrigin = 'top center';
-                    } else {
-                        flow.style.transformOrigin = 'top left';
-                    }
-                    flow.style.transform = 'scale(' + s + ')';
-                    var rw = wContent * s;
-                    var rh = hContent * s;
-                    var dimW = mobile ? Math.floor(rw) : Math.ceil(rw);
-                    var dimH = mobile ? Math.floor(rh) : Math.ceil(rh);
-                    shell.style.width = Math.max(1, dimW) + 'px';
-                    shell.style.height = Math.max(1, dimH) + 'px';
-                }
+                shrinkPhoenixToFit(targetH, minLogo);
+                applyFlowScale(isMobileHero() ? 0.965 : 0.97);
             }
+
+            mqMobile.addEventListener('change', function () {
+                syncMobileViewportTop();
+                requestAnimationFrame(applyHeroViewport);
+                requestAnimationFrame(fitHero);
+            });
 
             var ro = new ResizeObserver(function () {
                 requestAnimationFrame(fitHero);
             });
             ro.observe(header);
             ro.observe(flow);
+            if (phoenixWrap) ro.observe(phoenixWrap);
+            var heroImg = phoenixWrap && phoenixWrap.querySelector('img');
+            if (heroImg && !heroImg.complete) {
+                heroImg.addEventListener('load', function () {
+                    requestAnimationFrame(fitHero);
+                });
+            }
             window.addEventListener('resize', function () {
                 requestAnimationFrame(fitHero);
             });
             window.addEventListener('orientationchange', function () {
-                setTimeout(fitHero, 250);
+                setTimeout(function () {
+                    syncMobileViewportTop();
+                    fitHero();
+                }, 250);
             });
             if (window.visualViewport) {
                 window.visualViewport.addEventListener('resize', function () {
-                    if (iphoneScroll) syncIphoneSafeAreaTop();
+                    syncMobileViewportTop();
                     requestAnimationFrame(fitHero);
                 });
-                if (isIPhone()) {
-                    window.visualViewport.addEventListener('scroll', function () {
-                        syncIphoneSafeAreaTop();
-                        requestAnimationFrame(applyHeroViewport);
-                        requestAnimationFrame(fitHero);
-                    });
-                }
+                window.visualViewport.addEventListener('scroll', function () {
+                    syncMobileViewportTop();
+                    requestAnimationFrame(fitHero);
+                });
             }
             if (document.fonts && document.fonts.ready) {
                 document.fonts.ready.then(function () {
@@ -1076,7 +1012,7 @@
             setTimeout(applyHeroViewport, 100);
             setTimeout(applyHeroViewport, 400);
             window.addEventListener('pageshow', function () {
-                if (iphoneScroll) syncIphoneSafeAreaTop();
+                syncMobileViewportTop();
                 applyHeroViewport();
                 setTimeout(applyHeroViewport, 150);
             });
