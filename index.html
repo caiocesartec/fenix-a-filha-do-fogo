@@ -615,6 +615,48 @@
                 }
             }
         }
+        /*
+         * iPhone (Safari): desliga altura fixa + scale no JS — evita cortes (ex.: iPhone 7 375×667).
+         * Hero com min-altura de ecrã e scroll suave se o conteúdo for mais alto.
+         */
+        html.iphone-hero-scroll .hero-section {
+            height: auto !important;
+            max-height: none !important;
+            min-height: 100vh !important;
+            min-height: -webkit-fill-available !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-y: contain;
+        }
+        @supports (height: 100svh) {
+            html.iphone-hero-scroll .hero-section {
+                min-height: 100svh !important;
+            }
+        }
+        html.iphone-hero-scroll .hero-stage {
+            flex: 1 0 auto;
+            min-height: 0;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding-top: 0.2rem;
+            padding-bottom: 2.5rem;
+        }
+        html.iphone-hero-scroll .hero-fit-shell {
+            overflow: visible !important;
+            height: auto !important;
+            min-height: 0;
+            width: 100% !important;
+            max-width: 100% !important;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+        html.iphone-hero-scroll .hero-flow {
+            transform: none !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            justify-content: flex-start;
+        }
     </style>
 </head>
 <body class="bg-neutral-950 text-neutral-200 font-montserrat antialiased selection:bg-fire-500 selection:text-white">
@@ -871,16 +913,21 @@
 
     <script>
         (function () {
+            function isIPhone() {
+                return /iPhone/.test(navigator.userAgent || '');
+            }
+            if (isIPhone() && window.matchMedia('(max-width: 768px)').matches) {
+                document.documentElement.classList.add('iphone-hero-scroll');
+            }
+
             var header = document.querySelector('header.hero-section');
             var shell = document.querySelector('.hero-fit-shell');
             var flow = document.querySelector('.hero-flow');
             if (!header || !shell || !flow) return;
 
-            function isIPhone() {
-                return /iPhone/.test(navigator.userAgent || '');
-            }
+            var iphoneScroll = document.documentElement.classList.contains('iphone-hero-scroll');
 
-            /** Desktop: altura em px. iPhone: visualViewport (barra URL). Outros mobile: CSS 100svh. */
+            /** Desktop: altura em px. iPhone mobile: sem altura fixa (classe iphone-hero-scroll). */
             function applyHeroViewport() {
                 var el = document.querySelector('header.hero-section');
                 var mobile = window.matchMedia('(max-width: 768px)').matches;
@@ -893,6 +940,12 @@
                 if (h < 200) return;
                 document.documentElement.style.setProperty('--app-vh', h + 'px');
                 document.documentElement.style.setProperty('--vh', (h * 0.01) + 'px');
+                if (iphoneScroll && el) {
+                    el.style.removeProperty('height');
+                    el.style.removeProperty('min-height');
+                    el.style.removeProperty('max-height');
+                    return;
+                }
                 if (el) {
                     if (mobile) {
                         if (iphone && vv && vv.height > 200) {
@@ -921,6 +974,10 @@
                 shell.style.width = '';
                 shell.style.height = '';
                 void shell.offsetHeight;
+
+                if (iphoneScroll) {
+                    return;
+                }
 
                 var mobile = window.matchMedia('(max-width: 768px)').matches;
                 var narrow = window.matchMedia('(max-width: 400px)').matches;
