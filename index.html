@@ -46,6 +46,10 @@
         }
     </script>
     <style>
+        /* +10% em todo o site (escala rem do Tailwind) */
+        html {
+            font-size: 110%;
+        }
         .text-gradient {
             background-clip: text;
             -webkit-background-clip: text;
@@ -55,17 +59,245 @@
         .glow {
             text-shadow: 0 0 20px rgba(255, 102, 0, 0.5);
         }
-        /* Hero full-height: vh = fallback; dvh = altura visível dinâmica (mobile, barra de URL etc.) */
-        .min-h-hero {
+        .fenix-maps-icon {
+            filter: drop-shadow(0 0 12px rgba(255, 179, 102, 0.95)) drop-shadow(0 0 26px rgba(255, 102, 0, 0.7));
+        }
+        /* Hero = exatamente uma viewport de altura; conteúdo centralizado e escalado para caber */
+        .hero-section {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-height: 100vh;
             min-height: 100vh;
-            min-height: 100dvh;
+            padding-left: clamp(0.75rem, 2vw, 1.5rem);
+            padding-right: clamp(0.75rem, 2vw, 1.5rem);
+            padding-top: clamp(0.35rem, 1.5vh, 1.75rem);
+            padding-bottom: clamp(0.35rem, 1.5vh, 1.75rem);
+        }
+        @supports (height: 100dvh) {
+            .hero-section {
+                height: 100dvh;
+                max-height: 100dvh;
+                min-height: 100dvh;
+                padding-top: clamp(0.35rem, 1.5dvh, 1.75rem);
+                padding-bottom: clamp(0.35rem, 1.5dvh, 1.75rem);
+            }
+        }
+        .hero-stage {
+            flex: 1 1 auto;
+            min-height: 0;
+            min-width: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+        }
+        .hero-fit-shell {
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            max-width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @supports (height: 100dvh) {
+            .hero-flow {
+                gap: clamp(0.2rem, 1.1dvh, 1rem);
+            }
+        }
+        .hero-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: clamp(0.2rem, 1.1vh, 1rem);
+            width: 100%;
+            max-width: 56rem;
+            margin-left: auto;
+            margin-right: auto;
+            transform-origin: top left;
+        }
+        /* Logo principal (imagem marcetes) */
+        .hero-phoenix-wrap {
+            position: relative;
+            width: clamp(7rem, 38vmin, 17rem);
+            height: clamp(7rem, 38vmin, 17rem);
+            margin: 0 auto;
+            margin-bottom: clamp(-0.15rem, -0.25vmin, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .hero-phoenix-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            filter: drop-shadow(0 0 clamp(6px, 0.9vmin, 14px) rgba(255, 255, 255, 0.75));
+        }
+        .hero-subtitle {
+            font-family: Cinzel, serif;
+            font-weight: 700;
+            font-size: clamp(0.95rem, min(4vh, 5vmin), 2.65rem);
+            line-height: 1.12;
+            padding-left: 0.25rem;
+            padding-right: 0.25rem;
+            padding-bottom: 0.1rem;
+        }
+        .hero-desc {
+            font-weight: 300;
+            color: #d4d4d4;
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+            font-size: clamp(0.72rem, min(1.75vh, 2vmin), 1.2rem);
+            line-height: 1.45;
+        }
+        .hero-cta-card {
+            margin-top: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            max-width: 100%;
+            text-align: center;
+            border: 1px solid rgba(255, 102, 0, 0.5);
+            background: rgba(23, 23, 23, 0.8);
+            backdrop-filter: blur(8px);
+            border-radius: 0.5rem;
+            padding: clamp(0.5rem, min(1.5vh, 1.8vmin), 1.25rem);
+            box-shadow: 0 0 clamp(10px, 1.5vh, 18px) rgba(255, 102, 0, 0.2);
+        }
+        .hero-cta-loc {
+            color: #ffb366;
+            font-weight: 600;
+            font-size: clamp(0.72rem, 1.75vh, 1.1rem);
+        }
+        .hero-maps-wrap {
+            margin-top: clamp(0.25rem, 0.9vmin, 0.65rem);
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .hero-maps-link {
+            display: flex;
+            width: 100%;
+            max-width: 32rem;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(0.35rem, 1.15vh, 1rem);
+            border-radius: 0.75rem;
+            border: 2px solid rgba(255, 102, 0, 0.75);
+            background: linear-gradient(to bottom, rgba(23, 23, 23, 0.95), rgba(10, 10, 10, 0.9), rgba(0, 0, 0, 0.85));
+            padding: clamp(0.55rem, 1.6vh, 1.35rem) clamp(0.85rem, 2.2vh, 1.35rem);
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow:
+                0 0 clamp(14px, 2.2vh, 26px) rgba(255, 102, 0, 0.35),
+                inset 0 1px 0 rgba(255, 179, 102, 0.12);
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+        }
+        .hero-maps-link:hover {
+            border-color: rgba(255, 153, 51, 0.95);
+            box-shadow: 0 0 clamp(18px, 2.8vh, 34px) rgba(255, 102, 0, 0.5);
+        }
+        .hero-maps-link:active {
+            transform: scale(0.99);
+        }
+        .hero-maps-phoenix-ring {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: clamp(2.75rem, 9vh, 4.75rem);
+            height: clamp(2.75rem, 9vh, 4.75rem);
+        }
+        .hero-maps-phoenix-ring .blur-halo {
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            background: rgba(255, 102, 0, 0.25);
+            filter: blur(clamp(6px, 1vh, 14px));
+            opacity: 0.75;
+        }
+        .hero-maps-link:hover .blur-halo {
+            background: rgba(255, 153, 51, 0.35);
+        }
+        .hero-maps-phoenix-ring .ring-outline {
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            box-shadow:
+                0 0 0 2px rgba(255, 102, 0, 0.4),
+                0 0 0 clamp(3px, 0.5vh, 6px) rgba(10, 10, 10, 0.85);
+        }
+        .hero-maps-link:hover .ring-outline {
+            box-shadow:
+                0 0 0 2px rgba(255, 153, 51, 0.65),
+                0 0 0 clamp(3px, 0.5vh, 6px) rgba(10, 10, 10, 0.85);
+        }
+        .hero-maps-phoenix-icon {
+            position: relative;
+            z-index: 10;
+            font-size: clamp(1.15rem, 4.2vh, 2.6rem);
+            line-height: 1;
+            color: #ffb366;
+        }
+        .hero-maps-cta-text {
+            font-family: Cinzel, serif;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            font-size: clamp(0.68rem, 1.9vh, 1.05rem);
+            padding-left: 0.2rem;
+            padding-right: 0.2rem;
+        }
+        .hero-maps-addr {
+            font-size: clamp(0.58rem, 1.35vh, 0.88rem);
+            line-height: 1.5;
+            color: #a3a3a3;
+            font-weight: 300;
+            padding-left: 0.2rem;
+            padding-right: 0.2rem;
+            border-top: 1px solid rgba(204, 51, 0, 0.4);
+            padding-top: clamp(0.4rem, 1vh, 0.75rem);
+            margin-top: 0.1rem;
+            width: 100%;
+            max-width: 22rem;
+        }
+        .hero-cta-date {
+            font-size: clamp(0.6rem, min(1.25vh, 1.4vmin), 0.88rem);
+            color: #a3a3a3;
+            margin-top: clamp(0.3rem, 0.9vmin, 0.75rem);
+        }
+        .hero-apoio {
+            font-family: Cinzel, serif;
+            font-size: clamp(0.68rem, min(1.5vh, 1.75vmin), 0.95rem);
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            color: #a3a3a3;
+            margin-top: clamp(0.5rem, 1.4vmin, 1rem);
+            padding: 0 0.75rem;
+            line-height: 1.4;
+        }
+        .hero-apoio span {
+            color: #ffb366;
+            font-weight: 700;
         }
     </style>
 </head>
 <body class="bg-neutral-950 text-neutral-200 font-montserrat antialiased selection:bg-fire-500 selection:text-white">
 
     <!-- Hero Section -->
-    <header class="relative min-h-hero flex items-center justify-center px-4 py-8 overflow-hidden border-b-4 border-fire-700 bg-neutral-950">
+    <header class="hero-section relative overflow-hidden border-b-4 border-fire-700 bg-neutral-950">
         
         <!-- Fundo: cópia local de Commons File:Tina Turner.jpg (Les Zg, CC BY-SA 4.0). A URL Tina_Turner_1989.jpg deixou de existir no Commons (404). -->
         <div class="absolute inset-0 z-0 grayscale opacity-[0.38] bg-cover bg-center bg-no-repeat" 
@@ -75,40 +307,41 @@
         <!-- Degradê escuro por cima para manter o tom dramático e dar destaque absoluto à Fênix -->
         <div class="absolute inset-0 z-0 bg-gradient-to-b from-neutral-950/46 via-neutral-950/74 to-neutral-950"></div>
         
-        <div class="relative z-10 w-full max-w-4xl mx-auto text-center space-y-6">
+        <div class="hero-stage">
+            <div class="hero-fit-shell">
+                <div class="hero-flow">
             
-            <!-- Símbolo da Fênix (Visível sempre) -->
-            <div class="relative w-32 h-32 mx-auto flex items-center justify-center scale-110 mb-4">
-                <i class="fa-brands fa-phoenix-framework text-white text-5xl md:text-6xl absolute -mt-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.9)] z-10 animate-pulse"></i>
+            <div class="hero-phoenix-wrap">
+                <img src="images/logo-fenix.png" alt="Fênix — A Filha do Fogo" class="hero-phoenix-img" width="400" height="400" decoding="async" fetchpriority="high">
             </div>
 
-            <div class="uppercase tracking-[0.3em] text-fire-300 font-semibold text-sm md:text-base mb-4 animate-pulse mt-4">
-                Release Oficial
-            </div>
-            <h1 class="font-cinzel text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white mb-2 leading-tight px-2">
-                FÊNIX
-            </h1>
-            <h2 class="font-cinzel text-2xl sm:text-3xl md:text-5xl font-bold text-gradient pb-2 glow px-2">
+            <h1 class="hero-subtitle text-gradient glow">
                 A Filha do Fogo
-            </h2>
-            <div class="flex items-center justify-center gap-2 sm:gap-4 my-6 px-4">
-                <div class="h-px w-8 sm:w-16 bg-fire-500"></div>
-                <h3 class="font-cinzel text-xl sm:text-2xl md:text-3xl text-gold tracking-widest uppercase text-center">The Best</h3>
-                <div class="h-px w-8 sm:w-16 bg-fire-500"></div>
-            </div>
+            </h1>
             
-            <p class="text-base sm:text-lg md:text-xl font-light text-neutral-300 max-w-2xl mx-auto mt-8 px-4">
+            <p class="hero-desc">
                 Uma obra teatral que celebra a trajetória de Tina Turner, mostrando sua força, coragem e capacidade de transformar dor em arte.
             </p>
 
             <!-- Call to action for Date/Location -->
-            <div class="mt-12 mx-4 inline-block border border-fire-500/50 bg-neutral-900/80 backdrop-blur-sm p-4 sm:p-6 rounded-lg shadow-[0_0_15px_rgba(255,102,0,0.2)]">
-                <p class="text-fire-300 font-semibold text-sm sm:text-base"><i class="fas fa-map-marker-alt mr-2"></i> Feira de Artesanato em Pirituba – SP</p>
-                <a href="https://www.google.com/maps/search/?api=1&amp;query=Feira+de+Artesanato+em+Pirituba%2C+S%C3%A3o+Paulo%2C+SP" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 mt-3 font-cinzel text-xs sm:text-sm font-bold tracking-wide no-underline hover:opacity-90 transition-opacity">
-                    <i class="fas fa-directions text-fire-500 drop-shadow-[0_0_8px_rgba(255,102,0,0.45)]" aria-hidden="true"></i>
-                    <span class="text-gradient glow">COMO CHEGAR</span>
-                </a>
-                <p class="text-xs sm:text-sm text-neutral-400 mt-3">Data e Horário: 11 de Abril às 13h</p>
+            <div class="hero-cta-card">
+                <p class="hero-cta-loc"><i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i> Feira de Artesanato em Pirituba – SP</p>
+                <div class="hero-maps-wrap">
+                    <a href="https://www.google.com/maps/search/?api=1&amp;query=Av.%20Paula%20Ferreira%2C%203717%2C%20Jardim%20Pirituba%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2005140-020" target="_blank" rel="noopener noreferrer" aria-label="Abrir rota no Google Maps: Av. Paula Ferreira, 3717, Pirituba" class="hero-maps-link">
+                        <span class="hero-maps-phoenix-ring" aria-hidden="true">
+                            <span class="blur-halo"></span>
+                            <span class="ring-outline"></span>
+                            <i class="fa-brands fa-phoenix-framework fenix-maps-icon hero-maps-phoenix-icon" aria-hidden="true"></i>
+                        </span>
+                        <span class="hero-maps-cta-text text-gradient glow">Clique e veja como chegar</span>
+                        <span class="hero-maps-addr font-montserrat">Av. Paula Ferreira, 3717 – Jardim Pirituba, São Paulo – SP, 05140-020</span>
+                    </a>
+                </div>
+                <p class="hero-cta-date font-montserrat">Data e Horário: 11 de Abril às 13h</p>
+            </div>
+
+            <p class="hero-apoio">Apoio: <span>Vozes da Passarela</span></p>
+                </div>
             </div>
         </div>
     </header>
@@ -270,5 +503,62 @@
         </div>
     </footer>
 
+    <script>
+        (function () {
+            var header = document.querySelector('header.hero-section');
+            var shell = document.querySelector('.hero-fit-shell');
+            var flow = document.querySelector('.hero-flow');
+            if (!header || !shell || !flow) return;
+
+            function fitHero() {
+                flow.style.transform = '';
+                shell.style.width = '';
+                shell.style.height = '';
+                void shell.offsetHeight;
+
+                var hAvail = header.clientHeight;
+                var wAvail = header.clientWidth;
+                var hContent = flow.scrollHeight;
+                var wContent = flow.scrollWidth;
+                var pad = 0.97;
+                var s = Math.min(1, (hAvail * pad) / hContent, (wAvail * pad) / wContent);
+
+                if (s < 1) {
+                    flow.style.transformOrigin = 'top left';
+                    flow.style.transform = 'scale(' + s + ')';
+                    shell.style.width = Math.max(1, Math.ceil(wContent * s)) + 'px';
+                    shell.style.height = Math.max(1, Math.ceil(hContent * s)) + 'px';
+                }
+            }
+
+            var ro = new ResizeObserver(function () {
+                requestAnimationFrame(fitHero);
+            });
+            ro.observe(header);
+            ro.observe(flow);
+            window.addEventListener('resize', function () {
+                requestAnimationFrame(fitHero);
+            });
+            window.addEventListener('orientationchange', function () {
+                setTimeout(fitHero, 250);
+            });
+            if (window.visualViewport) {
+                window.visualViewport.addEventListener('resize', function () {
+                    requestAnimationFrame(fitHero);
+                });
+            }
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(function () {
+                    requestAnimationFrame(fitHero);
+                });
+            }
+            window.addEventListener('load', function () {
+                requestAnimationFrame(fitHero);
+            });
+            requestAnimationFrame(function () {
+                requestAnimationFrame(fitHero);
+            });
+        })();
+    </script>
 </body>
 </html>
