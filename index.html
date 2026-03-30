@@ -146,41 +146,23 @@
             animation: none;
             transition: opacity 0.35s ease, visibility 0.35s ease;
         }
-        /* Hero = exatamente uma viewport de altura; conteúdo centralizado e escalado para caber */
+        /* Hero desktop: altura ao conteúdo (não ocupa a viewport inteira). Mobile ≤768px sobrescreve. */
         .hero-section {
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            max-height: 100vh;
-            min-height: 100vh;
+            height: auto;
+            min-height: 0;
+            max-height: none;
             overflow-x: hidden;
-            overflow-y: hidden;
+            overflow-y: visible;
             padding-left: max(15px, env(safe-area-inset-left, 0px));
             padding-right: max(15px, env(safe-area-inset-right, 0px));
-            padding-top: clamp(0.35rem, 1.5vh, 1.75rem);
-            padding-bottom: clamp(0.35rem, 1.5vh, 1.75rem);
-        }
-        @supports (height: 100dvh) {
-            .hero-section {
-                height: 100dvh;
-                max-height: 100dvh;
-                min-height: 100dvh;
-                padding-top: clamp(0.35rem, 1.5dvh, 1.75rem);
-                padding-bottom: clamp(0.35rem, 1.5dvh, 1.75rem);
-            }
-        }
-        /*
-         * iOS: --vh = innerHeight/100 em px → calc(*100) evita bug do 100vh.
-         * Fallback 1vh só se JS falhar.
-         */
-        .hero-section {
-            height: calc(var(--vh, 1vh) * 100);
-            max-height: calc(var(--vh, 1vh) * 100);
-            min-height: calc(var(--vh, 1vh) * 100);
+            padding-top: clamp(0.75rem, 2.5vh, 2.25rem);
+            padding-bottom: clamp(1.25rem, 4vh, 3rem);
         }
         .hero-stage {
-            flex: 1 1 auto;
+            flex: 0 1 auto;
             min-height: 0;
             min-width: 0;
             width: 100%;
@@ -192,7 +174,7 @@
         }
         .hero-fit-shell {
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             flex-shrink: 0;
             width: 100%;
             max-width: 100%;
@@ -219,6 +201,21 @@
             margin-right: auto;
             transform-origin: top left;
             box-sizing: border-box;
+        }
+        /* Desktop: coluna do hero + respiro lateral do box Maps face ao .hero-cta-card */
+        @media (min-width: 769px) {
+            .hero-flow {
+                max-width: min(42rem, 100%);
+            }
+            .hero-maps-wrap {
+                box-sizing: border-box;
+                padding-left: clamp(0.65rem, 2.2vw, 1.35rem);
+                padding-right: clamp(0.65rem, 2.2vw, 1.35rem);
+            }
+            .hero-maps-link {
+                padding-left: clamp(0.5rem, 1.75vw, 1rem);
+                padding-right: clamp(0.5rem, 1.75vw, 1rem);
+            }
         }
         /* Logo principal — --hero-phoenix-side (px) reduz só o logo quando o JS precisa caber na viewport */
         .hero-phoenix-wrap {
@@ -281,7 +278,7 @@
         .hero-cta-loc {
             color: #ffb366;
             font-weight: 600;
-            font-size: clamp(0.72rem, 1.65vh, 1.05rem);
+            font-size: clamp(0.792rem, 1.925vh, 1.21rem);
             margin-bottom: clamp(0.65rem, 2.2vw, 1.1rem);
         }
         .hero-maps-wrap {
@@ -289,9 +286,6 @@
             display: flex;
             justify-content: center;
             width: 100%;
-            box-sizing: border-box;
-            padding-left: clamp(0.5rem, 3.5vw, 1.15rem);
-            padding-right: clamp(0.5rem, 3.5vw, 1.15rem);
         }
         .hero-maps-link {
             display: flex;
@@ -304,7 +298,7 @@
             border-radius: 0.75rem;
             border: 2px solid rgba(255, 102, 0, 0.75);
             background: linear-gradient(to bottom, rgba(23, 23, 23, 0.95), rgba(10, 10, 10, 0.9), rgba(0, 0, 0, 0.85));
-            padding: clamp(0.5rem, 1.45vh, 1.2rem) clamp(0.35rem, 1.5vw, 0.65rem);
+            padding: clamp(0.55rem, 1.6vh, 1.35rem) 0;
             text-align: center;
             text-decoration: none;
             cursor: pointer;
@@ -368,7 +362,7 @@
             padding-right: 0;
         }
         .hero-maps-addr {
-            font-size: clamp(0.638rem, 1.485vh, 0.968rem);
+            font-size: calc(0.98 * clamp(0.638rem, 1.485vh, 0.968rem));
             line-height: 1.5;
             color: #a3a3a3;
             font-weight: 300;
@@ -390,10 +384,6 @@
             align-items: baseline;
             gap: 0.35rem;
             column-gap: 0.4rem;
-        }
-        .hero-cta-date-label {
-            color: #9ca3af;
-            font-weight: 500;
         }
         .hero-cta-date-value {
             font-weight: 700;
@@ -417,12 +407,10 @@
                 padding-bottom: max(10px, env(safe-area-inset-bottom, 0px)) !important;
             }
             .hero-stage {
-                flex: 1 0 auto;
+                flex: 1 1 auto;
                 min-height: 0;
-                align-items: flex-start;
-                justify-content: flex-start;
-                padding-top: 0.1rem;
-                padding-bottom: 2rem;
+                align-items: center;
+                justify-content: center;
             }
             .hero-fit-shell {
                 overflow: visible !important;
@@ -431,14 +419,15 @@
                 width: 100% !important;
                 max-width: 100% !important;
                 align-self: stretch;
-                align-items: flex-start;
-                justify-content: flex-start;
+                align-items: center;
+                justify-content: center;
             }
             .hero-flow {
                 gap: clamp(0.28rem, 2vw, 0.75rem);
                 width: 100% !important;
                 max-width: 100% !important;
-                justify-content: flex-start;
+                justify-content: center;
+                transform-origin: center center;
             }
             .hero-phoenix-wrap {
                 width: min(var(--hero-phoenix-side, 2400px), clamp(6.25rem, 42vw, 11rem));
@@ -480,11 +469,15 @@
                 font-size: clamp(0.99rem, 4.84vw, 1.232rem);
             }
             .hero-maps-addr {
-                font-size: clamp(0.88rem, 4.18vw, 1.078rem);
+                font-size: calc(0.98 * clamp(0.88rem, 4.18vw, 1.078rem));
             }
             .hero-cta-date {
                 font-size: clamp(0.858rem, 3.74vw, 1.012rem);
                 margin-top: clamp(0.45rem, 1.8vw, 0.75rem);
+            }
+            /* Cinzel falha no ã em alguns mobile/WebKit — Montserrat cobre português */
+            .participacao-especial-text {
+                font-family: Montserrat, sans-serif;
             }
         }
         /*
@@ -537,7 +530,7 @@
                 font-size: 0.72rem;
             }
             .hero-maps-addr {
-                font-size: 0.62rem;
+                font-size: calc(0.98 * 0.62rem);
                 line-height: 1.42;
                 padding-top: 0.3rem;
             }
@@ -605,7 +598,6 @@
                     </a>
                 </div>
                 <p class="hero-cta-date font-montserrat">
-                    <span class="hero-cta-date-label">Data e Horário:</span>
                     <span class="hero-cta-date-value text-gradient glow">11 de Abril às 13h</span>
                 </p>
             </div>
@@ -714,7 +706,8 @@
 
                     <div class="mt-6 p-4 bg-gradient-to-r from-fire-900/30 to-transparent rounded-lg border-l-4 border-fire-500">
                         <h4 class="font-cinzel font-bold text-gold flex items-center gap-2">
-                            <i class="fas fa-microphone-lines"></i> Participação Musical Especial
+                            <i class="fas fa-microphone-lines shrink-0" aria-hidden="true"></i>
+                            <span class="participacao-especial-text">Participação Musical Especial</span>
                         </h4>
                         <p class="mt-1">Grupo <strong>Tinamarcs & Marcettes</strong></p>
                     </div>
@@ -891,7 +884,7 @@
                 var wContent = flow.scrollWidth;
                 var s = Math.min(1, (hAvail * pad) / hContent, (wAvail * pad) / wContent);
                 if (s < 1 - 1e-6) {
-                    flow.style.transformOrigin = isMobileHero() ? 'top center' : 'top left';
+                    flow.style.transformOrigin = isMobileHero() ? 'center center' : 'top left';
                     flow.style.transform = 'scale(' + s + ')';
                     var rw = wContent * s;
                     var rh = hContent * s;
@@ -902,7 +895,7 @@
                 }
             }
 
-            /** Mobile e desktop: altura do header = viewport útil (--vh). */
+            /** Atualiza --vh (mobile usa no CSS do hero). Desktop: remove altura fixa do header. */
             function applyHeroViewport() {
                 var el = document.querySelector('header.hero-section');
                 var vv = window.visualViewport;
@@ -914,10 +907,15 @@
                 document.documentElement.style.setProperty('--app-vh', h + 'px');
                 document.documentElement.style.setProperty('--vh', (h * 0.01) + 'px');
                 syncMobileViewportTop();
-                if (el) {
+                if (!el) return;
+                if (isMobileHero()) {
                     el.style.setProperty('height', h + 'px', 'important');
                     el.style.setProperty('min-height', h + 'px', 'important');
                     el.style.setProperty('max-height', h + 'px', 'important');
+                } else {
+                    el.style.removeProperty('height');
+                    el.style.removeProperty('min-height');
+                    el.style.removeProperty('max-height');
                 }
             }
 
@@ -929,12 +927,14 @@
                 clearPhoenixSide();
                 void shell.offsetHeight;
 
-                var innerH = heroStageInnerHeight();
-                var targetH = innerH * (isMobileHero() ? 0.96 : 0.97);
-                var minLogo = isMobileHero() ? 48 : 56;
+                if (!isMobileHero()) {
+                    return;
+                }
 
-                shrinkPhoenixToFit(targetH, minLogo);
-                applyFlowScale(isMobileHero() ? 0.965 : 0.97);
+                var innerH = heroStageInnerHeight();
+                var targetH = innerH * 0.96;
+                shrinkPhoenixToFit(targetH, 48);
+                applyFlowScale(0.965);
             }
 
             mqMobile.addEventListener('change', function () {
